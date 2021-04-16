@@ -7,13 +7,35 @@ class Users
     private ?string $FullName=null;
     private ?int $Age=null;
     private ?string $Email=null;
+    private ?string $Password=null;
+    private ?bool $isActive=null;
 
-    function __construct(int $cin, string $fn, int $age, string $email)
+
+
+    function __construct(int $cin, string $fn, int $age, string $email, string $password, bool $isActive)
     {
         $this->CIN=$cin;
         $this->FullName=$fn;
         $this->Age=$age;
         $this->Email=$email;
+        $this->Password=$password;
+        $this->isActive=$isActive;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPassword(): ?string
+    {
+        return $this->Password;
+    }
+
+    /**
+     * @param string|null $Password
+     */
+    public function setPassword(?string $Password): void
+    {
+        $this->Password = $Password;
     }
 
     /**
@@ -78,6 +100,21 @@ class Users
     public function setEmail(?string $Email): void
     {
         $this->Email = $Email;
+    }
+    /**
+     * @return bool|null
+     */
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool|null $isActive
+     */
+    public function setIsActive(?bool $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
 }

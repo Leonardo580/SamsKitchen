@@ -1,11 +1,11 @@
 <?php
 include "../config.php";
-require_once "../Model/Users.php";
+include "../Model/Users.php";
 
 class UsersC
 {
     function ajouteruser($user){
-        $sql="INSERT into users values(:CIN,:FullName,:Age,:Email)";
+        $sql="INSERT into users values(:CIN,:FullName,:Age,:Email, :Password, :isActive)";
         $db=config::getConnexion();
         try {
             $query=$db->prepare($sql);
@@ -13,7 +13,9 @@ class UsersC
                 'CIN' => $user->getCIN(),
                 'FullName' => $user->getFullName(),
                 'Age' => $user->getAge(),
-                'Email' => $user->getEmail()
+                'Email' => $user->getEmail(),
+                'Password' => $user->getPassword(),
+                'isActive' => $user->getIsActive()
             ]);
         }catch (Exception $e){
             echo 'Error: '.$e->getMessage();
@@ -44,12 +46,16 @@ class UsersC
             update users set
             FullName=:FullName,
             Age=:Age,
-            Email=:Eamil
+            Email=:Eamil,
+            Password=:Password,
+            isActive=:isActive 
             where (CIN=:CIN)");
             $query->execute([
                 'FullName' => $user->getFullName(),
                 'Age' => $user->getAge(),
                 'Email' => $user->getEmail(),
+                'Password' => $user->getPassword(),
+                'isActive' =>$user->getIsActive(),
                 'CIN' => $cin
             ]);
         }catch(PDOException $e) {
@@ -61,8 +67,7 @@ class UsersC
         try {
             $query=$db->prepare("select * from users where (CIN=:CIN)");
             $query->execute();
-            $user=$query->fetch();
-            return $user;
+            return $query->fetch();
         }catch (Exception $e ){
             die('Error: '.$e->getMessage());
         }
