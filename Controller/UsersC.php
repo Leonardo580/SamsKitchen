@@ -15,7 +15,7 @@ class UsersC
                 'Age' => $user->getAge(),
                 'Email' => $user->getEmail(),
                 'Password' => $user->getPassword(),
-                'isActive' => $user->getIsActive()
+                'isActive' => true
             ]);
         }catch (Exception $e){
             echo 'Error: '.$e->getMessage();
@@ -44,32 +44,45 @@ class UsersC
             $db=config::getConnexion();
             $query=$db->prepare("
             update users set
-            FullName=:FullName,
+            (FullName=:FullName,
             Age=:Age,
             Email=:Eamil,
             Password=:Password,
-            isActive=:isActive 
+            isActive=:isActive) 
             where (CIN=:CIN)");
             $query->execute([
                 'FullName' => $user->getFullName(),
                 'Age' => $user->getAge(),
                 'Email' => $user->getEmail(),
                 'Password' => $user->getPassword(),
-                'isActive' =>$user->getIsActive(),
+                'isActive' =>true,
                 'CIN' => $cin
             ]);
         }catch(PDOException $e) {
             echo "Error: ".$e->getMessage();
         }
     }
-    function rechercheuser($id){
+    function rechercheuser($cin){
         $db=config::getConnexion();
         try {
             $query=$db->prepare("select * from users where (CIN=:CIN)");
+            $query->bindValue(':CIN',$cin);
             $query->execute();
-            return $query->fetch();
+            return $query->fetch(PDO::FETCH_OBJ);
         }catch (Exception $e ){
             die('Error: '.$e->getMessage());
         }
     }
+    function searchusers($cin){
+        $db=config::getConnexion();
+        try {
+            $query=$db->prepare("select * from users where (FullName like :CIN||'%');");
+            $query->bindValue(':CIN',$cin);
+            $query->execute();
+            return $query->fetchAll();
+        }catch (Exception $e ){
+            die('Error: '.$e->getMessage());
+        }
+    }
+
 }

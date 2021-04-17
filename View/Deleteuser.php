@@ -1,7 +1,8 @@
 <?php
 include "../Controller/UsersC.php";
-if (isset($_POST['CIN'])){
+$c=substr($_GET['CIN'],11,4);
+if (isset($c)){
     $userC=new UsersC();
-    $userC->supprimeruser($_POST['CIN']);
+    $userC->supprimeruser($c);
     header('Location:Front/index.html');
 }

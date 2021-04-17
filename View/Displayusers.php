@@ -1,7 +1,12 @@
 <?php
 include "../Controller/UsersC.php";
 $uc=new UsersC();
-$list=$uc->afficherusers();
+if (isset($_POST['CIN'])) {
+    if (!empty($_POST['CIN']))
+        $list = $uc->searchusers($_POST['CIN']);
+    else $list=$uc->afficherusers();
+}
+else $list=$uc->afficherusers();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -270,12 +275,14 @@ $list=$uc->afficherusers();
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <form action="" method="post">
+                        <input type="text" name="CIN" class="form-control float-right" placeholder="Search by CIN">
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>
                             </button>
+                        </form>
                         </div>
                     </div>
                 </div>

@@ -27,8 +27,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
     <a href="#myMap" class="w3-bar-item w3-button">SE CONNECTER</a>
     <a href="" class="w3-bar-item w3-button">ARTICLE</a>
-    <a href="../Modifyuser.php?id=<?PHP echo open; ?>" class="w3-bar-item w3-button">Modify Account</a>
-    <a href="../Deleteuser.php" class="w3-bar-item w3-button">Delete Account</a>
+    <a href="../Modifyuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Modify Account</a>
+    <a href="../Deleteuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Delete Account</a>
   </div>
 </div>
   

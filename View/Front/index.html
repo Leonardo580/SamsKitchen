@@ -155,13 +155,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 <div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
   <div class="w3-content">
     <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Sign In</h1>
-    <form action="../Adduser.php" target="_blank" method="post">
-      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" maxlength="4"></p>
+    <form action="../Adduser.php" target="_blank" method="post" id="SI" onsubmit="return check()">
+      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" maxlength="4" ></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="FullName"></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age"></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" ></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password"></p>
-      <p><button class="w3-button w3-light-grey w3-block" type="submit" onclick="check()">Sign In</button></p>
+      <p><button class="w3-button w3-light-grey w3-block" type="submit" >Sign In</button></p>
     </form>
   </div>
 </div>

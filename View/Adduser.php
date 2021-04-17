@@ -8,7 +8,7 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
     if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
         $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
         $uc->ajouteruser($u);
-        header('Location:Front/index_SI.html');
+        header("Location:Front/index_SI.php?CIN=<?PHP echo ".$_POST['CIN']."; ?>");
     }
 else {
     $err = "Missing Information";

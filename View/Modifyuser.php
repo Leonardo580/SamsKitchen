@@ -1,19 +1,21 @@
 <?php
+
 include "../Controller/UsersC.php";
-include "../Model/Users.php";
 $err="";
 $u=null;
+$tmp=substr($_GET['CIN'],11,4);
 $uc=new UsersC();
 if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) && isset($_POST['Email']) && isset($_POST['Password']))
     if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
         $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
-        $uc->modifieruser($u,$_GET['CIN']);
+        $uc->modifieruser($u,$tmp);
         header('Location:Front/index_SI.html');
     }
     else {
         $err = "Missing Information";
-        echo "<script type='text/javascript'>alert('$err');</script>";
+        echo "<script type='text/javascript'>alert('" . $err . "');</script>";
     }
+
 ?>
 <html>
 <title>W3.CSS Template</title>
@@ -47,19 +49,20 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
 </div>
 
 <?php
-if (isset($_GET['CIN'])) {
-    $user = $uc->rechercheuser($_GET['CIN']);
-}
-?>
-<form action="" target="_blank" method="post">
-    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" maxlength="4" disabled><?php echo $user->CIN; ?></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="FullName"><?php echo $user->FullName; ?></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age"><?php echo $user->Age; ?></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" ><?php echo $user->Email; ?></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password"><?php echo $user->Password; ?></p>
-    <p><button class="w3-button w3-light-grey w3-block" type="submit">Sign In</button></p>
-</form>
+$c=substr($_GET['CIN'],11,4);
+if (isset($c)) {
+    $user = $uc->rechercheuser($c);
 
+?>
+<form action=""  method="post">
+    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" maxlength="4" disabled value="<?php echo $user->CIN; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="FullName" value="<?php echo $user->FullName; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age" value="<?php echo $user->Age; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" value="<?php echo $user->Email; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password" value="<?php echo $user->Password; ?>"></p>
+    <p><button class="w3-button w3-light-grey w3-block" type="submit" onclick="check()">Modify</button></p>
+</form>
+<?php } ?>
 <footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
