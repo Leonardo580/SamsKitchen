@@ -276,7 +276,7 @@ else $list=$uc->afficherusers();
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <form action="" method="post">
-                        <input type="text" name="CIN" class="form-control float-right" placeholder="Search by CIN">
+                        <input type="text" name="CIN" class="form-control float-right" placeholder="Search by name">
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">

@@ -76,7 +76,8 @@ class UsersC
     function searchusers($cin){
         $db=config::getConnexion();
         try {
-            $query=$db->prepare("select * from users where (FullName like :CIN||'%');");
+            $query=$db->prepare("select * from users where (FullName like :CIN);");
+            $cin=$cin."%";
             $query->bindValue(':CIN',$cin);
             $query->execute();
             return $query->fetchAll();

@@ -9,7 +9,7 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
     if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
         $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
         $uc->modifieruser($u,$tmp);
-        header('Location:Front/index_SI.html');
+        header("Location:Front/index_SI.php?CIN=<?PHP echo ".$_POST['CIN']."; ?>");
     }
     else {
         $err = "Missing Information";
@@ -52,15 +52,16 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
 $c=substr($_GET['CIN'],11,4);
 if (isset($c)) {
     $user = $uc->rechercheuser($c);
-
+//var_dump($_SESSION['user']);
 ?>
-<form action=""  method="post">
-    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" maxlength="4" disabled value="<?php echo $user->CIN; ?>"></p>
+<form action=""  method="post" onsubmit="return check()">
+    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN"  maxlength="4" disabled value="<?php echo $user->CIN; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="hidden" placeholder="CIN"  name="CIN"  value="<?php echo $user->CIN; ?>"></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="FullName" value="<?php echo $user->FullName; ?>"></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age" value="<?php echo $user->Age; ?>"></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" value="<?php echo $user->Email; ?>"></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password" value="<?php echo $user->Password; ?>"></p>
-    <p><button class="w3-button w3-light-grey w3-block" type="submit" onclick="check()">Modify</button></p>
+    <p><button class="w3-button w3-light-grey w3-block" type="submit" >Modify</button></p>
 </form>
 <?php } ?>
 <footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
