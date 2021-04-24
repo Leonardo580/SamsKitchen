@@ -10,7 +10,7 @@ if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age'])
         $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
         $uc->ajouteruser($u);
         $_SESSION['user']=$u;
-        header("Location:Front/index_SI.php?CIN=<?PHP echo ".$_POST['CIN']."; ?>");
+        header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
     }
 else {
     $err = "Missing Information";

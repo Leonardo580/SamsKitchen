@@ -42,22 +42,23 @@ class UsersC
     function modifieruser($user,$cin){
         try {
             $db=config::getConnexion();
-            $query=$db->prepare("
-            update users set
-            (FullName=:FullName,
+            $query=$db->prepare(
+            'update users set
+            FullName=:FullName,
             Age=:Age,
-            Email=:Eamil,
+            Email=:Email,
             Password=:Password,
-            isActive=:isActive) 
-            where (CIN=:CIN)");
+            isActive=:isActive
+            where (CIN=:CIN)');
             $query->execute([
                 'FullName' => $user->getFullName(),
-                'Age' => $user->getAge(),
+                'Age' => (int)$user->getAge(),
                 'Email' => $user->getEmail(),
                 'Password' => $user->getPassword(),
                 'isActive' =>true,
-                'CIN' => $cin
+                'CIN' => (int)$cin
             ]);
+
         }catch(PDOException $e) {
             echo "Error: ".$e->getMessage();
         }

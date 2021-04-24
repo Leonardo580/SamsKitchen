@@ -239,6 +239,14 @@ else $list=$uc->afficherusers();
 
                             </p>
                         </a></li>
+                    <li class="nav-item">
+                        <a href="Stat.php" class="nav-link">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Stat
+
+                            </p>
+                        </a></li>
 
                 </ul>
             </nav>
