@@ -1,0 +1,80 @@
+<?PHP
+	include "../config.php";
+	require_once '../model/Ingredient.php';
+
+	class IngredientC {
+
+		function ajouterIngredient($Ingredient){
+			$sql="INSERT INTO Ingredient (nom,quantite,prix)
+			VALUES (:nom,:quantite,:prix)";
+			$db = config::getConnexion();
+			try{
+				$query = $db->prepare($sql);
+
+				$query->execute([
+					'nom' => $Ingredient->getNom(),
+					'quantite' => $Ingredient->getQte(),
+					'prix' => $Ingredient->getPrix()
+
+					
+
+				]);
+			}
+			catch (Exception $e){
+				echo 'Erreur: '.$e->getMessage();
+			}
+		}
+
+		function afficherIngredient(){
+
+			$sql="SELECT * FROM Ingredient";
+			$db = config::getConnexion();
+			try{
+				$liste = $db->query($sql);
+				return $liste;
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+		}
+
+		function supprimerIngredient($code){
+			$sql="DELETE FROM Ingredient WHERE code= :code";
+			$db = config::getConnexion();
+			$req=$db->prepare($sql);
+			$req->bindValue(':code',$code);
+			try{
+				$req->execute();
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+		}
+
+		function modifierIngredient($Ingredient, $code){
+			try {
+				$db = config::getConnexion();
+				$query = $db->prepare(
+					'UPDATE Ingredient SET
+						nom = :nom
+						quantite = :quantite
+						prix = :prix
+
+					WHERE code = :code'
+				);
+				$query->execute([
+					'nom' => $Ingredient->getNom(),
+					'quantite' => $Ingredient->getQte(),
+					'prix' => $Ingredient->getPrix()
+
+				]);
+				echo $query->rowCount() . " records UPDATED successfully <br>";
+			} catch (PDOException $e) {
+				$e->getMessage();
+			}
+		}
+
+		
+		
+}
+?>
