@@ -125,25 +125,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="add.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un fournisseur</p>
+                  <p>Ajouter une commande</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="add2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un ingredient</p>
+                  <p>Ajouter un livreur</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des fournisseurs </p>
+                  <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des ingredients</p>
+                  <p>Tableau des livreurs</p>
                 </a>
               </li>
             </ul>
@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> Afficher les fournisseur</h3>
+        <h3><i class="fa fa-angle-right"></i> Afficher les commandes</h3>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
@@ -189,16 +189,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="row">
 
-          <div class="content-wrapper">
+          <div class="">
                   <?php
                   
-                  include_once '../model/Fournisseur.php';
-                  include_once '../controller/FournisseurC.php';
+                  include_once '../model/Commandes.php';
+                  include_once '../controller/CommandesC.php';
 
-                  $fournisseurC=new FournisseurC();
-                    $listefournisseur=$fournisseurC->afficherFournisseur();
+                  $commandeC=new CommandesC();
+                    $listecommande=$commandeC->afficherCommande();
 
-                  foreach ($listefournisseur as $fg => $value):
+                  foreach ($listecommande as $fg => $value):
 
 
 
@@ -208,17 +208,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="card-header">
 
                 
-                  <h4>fournisseur N<?php echo $value['id']; ?> </h4>
+                  <h4>Commande N<?php echo $value['RefC']; ?> </h4>
                   <hr>
                 
                 <ul class="pricing">
-                  <li>Nom :<?php echo $value['nom']; ?></li>
-                  <li>Numero:<?php echo $value['numero']; ?></li>
-                  <li>Adresse :<?php echo $value['adresse']; ?></li>
+                  <li>Référence :<?php echo $value['RefC']; ?></li>
+                  <li>Nom:<?php echo $value['nomC']; ?></li>
+                  <li>Quantite:<?php echo $value['quantiteC']; ?></li>
+                  <li>Prix:<?php echo $value['prixC']; ?></li>
+                  <li>Type:<?php echo $value['typeC']; ?></li>
+                  <li>IdLivreur:<?php echo $value['IdLivr']; ?></li>
 
                 </ul>
-                <a class="btn btn-primary" href="../controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
-                <a class="btn btn-primary" href="modi.php?id=<?php echo $value['id']; ?>">Modifier</a>
+                <a class="btn btn-primary" href="../controller/supprimerCom.php?RefC=<?php echo $value['RefC']; ?>">Supprimer</a>
+                <a class="btn btn-primary" href="modi.php?RefC=<?php echo $value['RefC']; ?>">Modifier</a>
 
               </div>
               

@@ -2,27 +2,35 @@
 <?php
  require('../config.php');
 $db = config::getConnexion();
-$id = $_GET['id'];
-$sql = 'SELECT * FROM fournisseur WHERE id=:id';
+$RefC = $_GET['RefC'];
+$sql = 'SELECT * FROM Commandes WHERE RefC=:RefC';
 $stat = $db->prepare($sql);
-$stat->execute([':id' => $id ]);
+$stat->execute([':RefC' => $RefC ]);
 $r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-    isset ($_POST['adresse'])&&
-    isset ($_POST['numero'])
+if (
+  
+    isset ($_POST['nomC'])&&
+    isset ($_POST['quantiteC'])&&
+    isset ($_POST['prixC'])&&
+    isset ($_POST['typeC'])&&
+    isset ($_POST['IdLivr'])
+
  ) {
-   $nom = $_POST['nom'];
-   $adresse = $_POST['adresse'];
-   $numero = $_POST['numero'];
-  $sql = 'UPDATE fournisseur SET nom=:nom ,adresse=:adresse,numero=:numero WHERE id=:id';
-  $stat = $db->prepare($sql);
+ 
+  $nomC = $_POST['nomC'];
+  $quantiteC = $_POST['quantiteC'];
+  $prixC = $_POST['prixC'];
+  $typeC = $_POST['typeC'];
+  $IdLivr = $_POST['IdLivr'];
+
+$sql = 'UPDATE Commandes SET nomC=:nomC,quantiteC=:quantiteC,prixC=:prixC,typeC=:typeC,IdLivr:=IdLivr  WHERE RefC=:RefC';
+$stat = $db->prepare($sql);
 
 
 
 
 
-
-if ($stat->execute([':nom' => $nom, ':adresse' => $adresse,':numero' => $numero , ':id' => $id])) {
+if ($stat->execute([':nomC' => $nomC, ':quantiteC' => $quantiteC,':prixC' => $prixC , ':typeC' => $typeC ,':IdLivr' => $IdLivr, ':RefC' => $RefC])) {
   header("Location: affichage.php");
   }
 }
@@ -156,25 +164,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="add.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un fournisseur</p>
+                  <p>Ajouter une commande</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="add2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un ingredient</p>
+                  <p>Ajouter un livreur</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des fournisseurs </p>
+                  <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="modifier.php" class="nav-link active">
+                <a href="affichage.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modifier des fournisseurs</p>
+                  <p>Modifier des commandes</p>
                 </a>
               </li>
             </ul>
@@ -204,7 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un fournisseur </h1>
+            <h1 class="m-0"> Modifier une commande </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -224,7 +232,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
+        <h3><i class="fa fa-angle-right"></i> Modification d'une commande</h3>
 
         
         <!-- BASIC FORM ELELEMNTS -->
@@ -233,27 +241,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
             <div id="message"></div>
                 <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
-                  <div class="form-group ">
+               
+                               <div class="form-group ">
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
+         <input class="form-control " value="<?= $r->nomC; ?>"  name="nomC" type="text" required />
                     </div>
                   </div>
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
+                    <label  class="control-label col-lg-2">Quantite</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
+           <input class="form-control " value="<?= $r->quantiteC; ?>"  name="quantiteC" type="number" required />
                     </div>
                   </div>
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse</label>
+                  
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
+           <input class="form-control " value="<?= $r->prixC; ?>"  name="prixC" type="number" required />
                     </div>
                   </div>
+                   
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Type</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control " value="<?= $r->typeC; ?>"  name="typeC" type="text" required />
+                    </div>
+                  </div>
+
+                   
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">IdLivreur</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control " value="<?= $r->IdLivr; ?>"  name="IdLivr" type="number" required />
+                    </div>
+                  </div>
+
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                   <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>

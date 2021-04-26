@@ -1,20 +1,21 @@
 <?PHP
 	include "../config.php";
-	require_once '../model/Ingredient.php';
+	require_once '../model/Livreur.php';
 
-	class IngredientC {
+	class LivreurC {
 
-		function ajouterIngredient($Ingredient){
-			$sql="INSERT INTO Ingredient (nom,quantite,prix)
-			VALUES (:nom,:quantite,:prix)";
+		function ajouterLivreur($Livreur){
+			$sql="INSERT INTO Livreur (IdLivr,nomL,prenomL,tel)
+			VALUES (:IdLivr,:nomL,:prenomL,:tel)";
 			$db = config::getConnexion();
 			try{
 				$query = $db->prepare($sql);
 
 				$query->execute([
-					'nom' => $Ingredient->getNom(),
-					'quantite' => $Ingredient->getQte(),
-					'prix' => $Ingredient->getPrix()
+					'IdLivr' => $Livreur->getIdLivr(),
+					'nomL' => $Livreur->getnomL(),
+					'prenomL' => $Livreur->getprenomL(),
+					'tel' => $Livreur->getTel()
 
 					
 
@@ -25,9 +26,9 @@
 			}
 		}
 
-		function afficherIngredient(){
+		function afficherLivreur(){
 
-			$sql="SELECT * FROM Ingredient";
+			$sql="SELECT * FROM Livreur";
 			$db = config::getConnexion();
 			try{
 				$liste = $db->query($sql);
@@ -38,11 +39,11 @@
 			}
 		}
 
-		function supprimerIngredient($code){
-			$sql="DELETE FROM Ingredient WHERE code= :code";
+		function supprimerLivreur($IdLivr){
+			$sql="DELETE FROM Livreur WHERE IdLivr= :IdLivr";
 			$db = config::getConnexion();
 			$req=$db->prepare($sql);
-			$req->bindValue(':code',$code);
+			$req->bindValue(':IdLivr',$IdLivr);
 			try{
 				$req->execute();
 			}
@@ -51,21 +52,21 @@
 			}
 		}
 
-		function modifierIngredient($Ingredient, $code){
+		function modifierLivreur($Livreur, $IdLivr){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(
-					'UPDATE Ingredient SET
-						nom = :nom
-						quantite = :quantite
-						prix = :prix
+					'UPDATE Livreur SET
+						nomL = :nomL
+						prenomL = :prenomL
+						tel = :tel
 
-					WHERE code = :code'
+					WHERE IdLivr = :IdLivr'
 				);
 				$query->execute([
-					'nom' => $Ingredient->getNom(),
-					'quantite' => $Ingredient->getQte(),
-					'prix' => $Ingredient->getPrix()
+					'nomL' => $Livreur->getnomL(),
+					'prenomL' => $Livreur->getprenomL(),
+					'tel' => $Livreur->getTel()
 
 				]);
 				echo $query->rowCount() . " records UPDATED successfully <br>";

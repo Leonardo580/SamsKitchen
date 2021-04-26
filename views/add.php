@@ -1,36 +1,47 @@
 <?php
-    include_once '../model/Fournisseur.php';
-    include_once '../controller/FournisseurC.php';
+    include_once '../model/Commandes.php';
+    include_once '../controller/CommandesC.php';
  
 
 
-
+    print_r($_POST);
     $error = "";
 
-    // create NewFournisseur
-    $NewFournisseur = null;
+  
+    $NewCommande = null;
 
     // create an instance of the controller
-    $NewFournisseurC = new FournisseurC();
+    $NewCommandeC = new CommandesC();
     if (
-        isset($_POST["nom"])&&
- 
-        isset($_POST["adresse"])
+      isset($_POST['RefC']) &&
+      isset($_POST['nomC']) &&
+      isset($_POST['quantiteC']) &&
+      isset($_POST['prixC']) &&
+      isset($_POST['typeC']) && 
+      isset($_POST['IdLivr'])
 
     ) {
-        if (
-            !empty($_POST["nom"])&&
+        if  (
+          !empty($_POST['RefC']) &&
+          !empty($_POST['nomC']) &&
+          !empty($_POST['quantiteC']) && 
+          !empty($_POST['prixC']) &&
+          !empty($_POST['typeC'])&& 
+          !empty($_POST['IdLivr'])
+            )
         
-            !empty($_POST["adresse"])
-
-        ) {
-            $NewFournisseur = new Fournisseur(
-                $_POST['nom'],
-                $_POST['numero'],
-                $_POST['adresse']
+        {
+            $NewCommande = new Commandes(
+              ($_POST['RefC']),
+              ($_POST['nomC']),
+              ($_POST['quantiteC']),
+              ($_POST['prixC']),
+             ($_POST['typeC']),
+             ($_POST['IdLivr'])
             );
-            $NewFournisseurC->ajouterFournisseur($NewFournisseur);
-           header('Location:add.php');
+            $NewCommandeC->ajouterCommande($NewCommande);
+          
+           header("Location:Front/index_SI.php?RefC=".$_POST['RefC']."");
         }
         else
             $error = "Missing information";
@@ -169,25 +180,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="add.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un fournisseur</p>
+                  <p>Ajouter une commande</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="add2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un ingredient</p>
+                  <p>Ajouter un livreur</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des fournisseurs </p>
+                  <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des ingredients</p>
+                  <p>Tableau des livreurs</p>
                 </a>
               </li>
             </ul>
@@ -217,7 +228,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"> L'ajout d'un fournisseur </h1>
+            <h1 class="m-0"> L'ajout d'une commande </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -233,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> Ajouter un fournisseur</h3>
+        <h3><i class="fa fa-angle-right"></i> Ajouter une commande</h3>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
@@ -244,24 +255,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div id="message"></div>
                 <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
                   <div class="form-group ">
+                    <label  class="control-label col-lg-2">Référence</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control "  name="RefC" type="number" required />
+                    </div>
+                  </div>
+                               <div class="form-group ">
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
 
-           <input class="form-control "  name="nom" type="text" required />
+         <input class="form-control "  name="nomC" type="text" required />
                     </div>
                   </div>
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
+                    <label  class="control-label col-lg-2">Quantité</label>
                     <div class="col-lg-10">
 
-         <input class="form-control "  name="numero" type="number" required />
+           <input class="form-control "  name="quantiteC" type="number" required />
                     </div>
                   </div>
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse</label>
+
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
 
-           <input class="form-control "  name="adresse" type="text" required />
+           <input class="form-control "  name="prixC" type="number" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Type</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control "  name="typeC" type="text" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">IdLivreur</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control "  name="IdLivr" type="number" required />
                     </div>
                   </div>
 

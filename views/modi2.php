@@ -2,19 +2,19 @@
 <?php
  require('../config.php');
 $db = config::getConnexion();
-$code = $_GET['code'];
-$sql = 'SELECT * FROM ingredient WHERE code=:code';
+$IdLivr = $_GET['IdLivr'];
+$sql = 'SELECT * FROM Livreur WHERE IdLivr=:IdLivr';
 $stat = $db->prepare($sql);
-$stat->execute([':code' => $code ]);
+$stat->execute([':IdLivr' => $IdLivr ]);
 $r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-    isset ($_POST['quantite'])&&
-    isset ($_POST['prix'])
+if (isset ($_POST['nomL'])&&
+    isset ($_POST['prenomL'])&&
+    isset ($_POST['tel'])
  ) {
-   $nom = $_POST['nom'];
-   $quantite = $_POST['quantite'];
-   $prix = $_POST['prix'];
-  $sql = 'UPDATE ingredient SET nom=:nom ,quantite=:quantite, prix=:prix WHERE code=:code';
+   $nomL = $_POST['nomL'];
+   $prenomL = $_POST['prenomL'];
+   $tel = $_POST['tel'];
+  $sql = 'UPDATE Livreur SET nomL=:nomL ,prenomL=:prenomL, tel=:tel WHERE IdLivr=:IdLivr';
   $stat = $db->prepare($sql);
 
 
@@ -22,8 +22,8 @@ if (isset ($_POST['nom'])&&
 
 
 
-if ($stat->execute([':nom' => $nom, ':quantite' => $quantite,':prix' => $prix , ':code' => $code])) {
-  header("Location: affichage.php");
+if ($stat->execute([':nomL' => $nomL, ':prenomL' => $prenomL,':tel' => $tel , ':IdLivr' => $IdLivr])) {
+  header("Location: affichage2.php");
   }
 }
 
@@ -156,25 +156,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="add.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un fournisseur</p>
+                  <p>Ajouter une commande</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="add2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un ingredient</p>
+                  <p>Ajouter un livreur</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="affichage2.php" class="nav-link ">
+                <a href="affichage.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des fournisseurs </p>
+                  <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="modifier2.php" class="nav-link active">
+                <a href="affichage2.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modifier des ingredients</p>
+                  <p>Modifier des livreurs</p>
                 </a>
               </li>
             </ul>
@@ -206,7 +206,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un ingredient </h1>
+            <h1 class="m-0"> Modifier un livreur </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
+        <h3><i class="fa fa-angle-right"></i> Modification d'un livreur</h3>
 
         
         <!-- BASIC FORM ELELEMNTS -->
@@ -239,21 +239,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
+           <input class="form-control " value="<?= $r->nomL; ?>"  name="nomL" type="text" required />
+                    </div>
+                  </div>
+                              
+
+
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Prénom</label>
+                    <div class="col-lg-10">
+
+           <input class="form-control " value="<?= $r->prenomL; ?>"  name="prenomL" type="text" required />
                     </div>
                   </div>
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Quantite</label>
+                    <label  class="control-label col-lg-2">tel</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="quantite" type="number" required />
-                    </div>
-                  </div>
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Prix</label>
-                    <div class="col-lg-10">
-
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="prix" type="float" required />
+           <input class="form-control " value="<?= $r->tel; ?>"  name="tel" type="number" required />
                     </div>
                   </div>
                   <div class="form-group">

@@ -125,25 +125,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="add.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un fournisseur</p>
+                  <p>Ajouter une commande</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="add2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter un ingredient</p>
+                  <p>Ajouter un livreur</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des fournisseurs </p>
+                  <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="affichage2.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tableau des ingredients</p>
+                  <p>Tableau des livreurs</p>
                 </a>
               </li>
             </ul>
@@ -175,7 +175,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> Afficher les ingredients </h3>
+        <h3><i class="fa fa-angle-right"></i> Afficher les livreurs </h3>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
@@ -189,16 +189,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="row">
 
-          <div class="content-wrapper">
+          <div class="">
                                                                             <?php
                   
-                  include_once '../model/Ingredient.php';
-                  include_once '../controller/IngredientC.php';
+                  include_once '../model/Livreur.php';
+                  include_once '../controller/LivreurC.php';
 
-                  $ingredientC=new IngredientC();
-                    $listeingredient=$ingredientC->afficherIngredient();
+                  $livreurC=new LivreurC();
+                    $listelivreur=$livreurC->afficherLivreur();
 
-                  foreach ($listeingredient as $fg => $value):
+                  foreach ($listelivreur as $fg => $value):
 
 
 
@@ -209,20 +209,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 
                   <div class="card card-primary card-outline">
               <div class="card-header">
-                  <h4>ingredient N<?php echo $value['code']; ?> </h4>
+                  <h4>Livreur N<?php echo $value['IdLivr']; ?> </h4>
                   <hr>
                 
 
                
                 <ul class="pricing">
-                  <li>Nom :<?php echo $value['nom']; ?></li>
-                  <li>Quantite:<?php echo $value['quantite']; ?></li>
-                  <li>Prix :<?php echo $value['prix']; ?></li>
+                  <li>Nom :<?php echo $value['nomL']; ?></li>
+                  <li>Prénom:<?php echo $value['prenomL']; ?></li>
+                  <li>NumTel :<?php echo $value['tel']; ?></li>
 
                 </ul>
-                <a class="btn btn-primary" href="../controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
+                <a class="btn btn-primary" href="../controller/supprimerLiv.php?IdLivr=<?php echo $value['IdLivr']; ?>">Supprimer</a>
 
-                <a class="btn btn-primary" href="modi2.php?code=<?php echo $value['code']; ?>">Modifier</a>
+                <a class="btn btn-primary" href="modi2.php?IdLivr=<?php echo $value['IdLivr']; ?>">Modifier</a>
 
               </div>
               
