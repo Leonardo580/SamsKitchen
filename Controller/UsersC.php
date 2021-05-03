@@ -1,16 +1,15 @@
 <?php
-include "../config.php";
-include "../Model/Users.php";
+include_once "../config.php";
+include_once "../Model/Users.php";
 
 class UsersC
 {
     function ajouteruser($user){
-        $sql="INSERT into users values(:CIN,:FullName,:Age,:Email, :Password, :isActive)";
+        $sql="INSERT into users(FullName, Age, Email, Password,isActive) values(:FullName,:Age,:Email, :Password, :isActive)";
         $db=config::getConnexion();
         try {
             $query=$db->prepare($sql);
             $query->execute([
-                'CIN' => $user->getCIN(),
                 'FullName' => $user->getFullName(),
                 'Age' => $user->getAge(),
                 'Email' => $user->getEmail(),
@@ -55,7 +54,7 @@ class UsersC
                 'Age' => (int)$user->getAge(),
                 'Email' => $user->getEmail(),
                 'Password' => $user->getPassword(),
-                'isActive' =>true,
+                'isActive' =>$user->getIsActive(),
                 'CIN' => (int)$cin
             ]);
 
@@ -85,6 +84,44 @@ class UsersC
         }catch (Exception $e ){
             die('Error: '.$e->getMessage());
         }
+    }
+    function disableuser($cin){
+        $ou=$this->rechercheuser($cin);
+        $nu=new Users($ou->CIN,$ou->FullName,$ou->Age,$ou->Email, $ou->Password,false);
+        $this->modifieruser($nu,$cin);
+    }
+    function getLastId(){
+        $db=config::getConnexion();
+        try {
+            $query=$db->prepare("SELECT `AUTO_INCREMENT`
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'projet'
+AND TABLE_NAME = 'users';");
+           $query->execute();
+
+            return (int)$query->fetch()['AUTO_INCREMENT'];
+        }catch (Exception $e ){
+            die('Error: '.$e->getMessage());
+        }
+    }
+    function connexionUser($email,$password){
+        $sql="SELECT * FROM users WHERE Email='" . $email . "' and Password = '". $password."'";
+        $db = config::getConnexion();
+        try{
+            $query=$db->prepare($sql);
+            $query->execute();
+            $count=$query->rowCount();
+            if($count==0) {
+                $message = "pseudo ou le mot de passe est incorrect";
+            } else {
+                $x=$query->fetch();
+                $message = $x['CIN'];
+            }
+        }
+        catch (Exception $e){
+            $message= " ".$e->getMessage();
+        }
+        return $message;
     }
 
 }

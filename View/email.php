@@ -1,18 +1,23 @@
 <?php
-include_once "../Controller/ReviewsC.php";
-include_once "../Model/Reviews.php";
-$err="";
-$r=null;
-$rc=new ReviewsC();
-if (isset($_POST['rate']) && isset($_POST['title']) && isset($_POST['text']))
-    if (!empty($_POST['rate']) && !empty($_POST['title']) && !empty($_POST['text'])){
-        $r=new Reviews(0,$_POST['rate'], $_POST['title'], $_POST['text'],$_POST['CIN']);
-        $rc->modifierreview($r,$_GET['id']);
-        header("Location:Displayreviews.php?CIN=".$_POST['CIN']."");
-    }
-    else {
-        $err = "Missing Information";
-        echo "<script type='text/javascript'>alert('$err');</script>";
+
+if (isset($_POST['to']) && isset($_POST['subject']) && isset($_POST['message']))
+    if (!empty($_POST['to']) && !empty($_POST['subject']) && !empty($_POST['message'])){
+        $to = $_POST['to'];
+        $subject = $_POST['subject'];
+
+        $message = $_POST['message'];
+
+        $header = "From:anasbenbrahim9@outlook.com\r\n";
+        //$header .= "Cc:afgh@somedomain.com \r\n";
+        //$header .= "MIME-Version: 1.0\r\n";
+        //$header .= "Content-type: text/html\r\n";
+        /*ini_set("SMTP", "aspmx.l.google.com");
+        ini_set("sendmail_from", "YOURMAIL@gmail.com");
+        ini_set("smtp_port","465");
+        */
+
+        $rs=mail ($to,$subject,$message,$header);
+
     }
 ?>
 <html>
@@ -49,28 +54,18 @@ if (isset($_POST['rate']) && isset($_POST['title']) && isset($_POST['text']))
         </div>
     </div>
 </div>
-<div id="error">
-    <?php echo $err; ?>
-</div>
-<?php
-if (isset($_GET['id'])){
-    $re=$rc->recherchereview($_GET['id']);
-?>
+
 
 <br>
 <br>
 <br>
+
 <form action=""  method="post" >
-    <p><label>Rate</label></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="rate" required  name="rate" value="<?php echo $re->rate;?>"></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="hidden"  required  name="CIN" value="<?php echo $re->CIN;?>"></p>
-    <p><label>Subject</label></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="title"  required name="title" value="<?php echo $re->title;?>"></p>
-    <p><label>Text</label></p>
-    <p><textarea rows="5" class="w3-input w3-padding-16 w3-border" type="text" placeholder="text" required name="text" ><?php echo $re->text;?></textarea></p>
-    <p><button class="w3-button w3-light-grey w3-block" type="submit" >Modify Review</button></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="To" required  name="to"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="subject"  required name="subject"></p>
+    <p><textarea rows="5" class="w3-input w3-padding-16 w3-border"  placeholder="message"  name="message"></textarea></p>
+    <p><button class="w3-button w3-light-grey w3-block" type="submit" >send email</button></p>
 </form>
-<?php } ?>
 <footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
@@ -95,3 +90,4 @@ if (isset($_GET['id'])){
 
 </body>
 </html>
+

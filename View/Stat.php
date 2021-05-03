@@ -1,12 +1,5 @@
 <?php
-include "../Controller/UsersC.php";
-$uc=new UsersC();
-if (isset($_POST['CIN'])) {
-    if (!empty($_POST['CIN']))
-        $list = $uc->searchusers($_POST['CIN']);
-    else $list=$uc->afficherusers();
-}
-else $list=$uc->afficherusers();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -232,7 +225,7 @@ else $list=$uc->afficherusers();
                             </p>
                         </a>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="Displayusers.php" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 display all users
@@ -240,7 +233,7 @@ else $list=$uc->afficherusers();
                             </p>
                         </a></li>
                     <li class="nav-item">
-                        <a href="Stat.php" class="nav-link">
+                        <a href="" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Stat
@@ -275,61 +268,153 @@ else $list=$uc->afficherusers();
         <!-- /.content-header -->
 
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">All users</h3>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All users</h3>
 
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <form action="" method="post">
-                        <input type="text" name="CIN" class="form-control float-right" placeholder="Search by name">
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <form action="" method="post">
+                                    <input type="text" name="CIN" class="form-control float-right" placeholder="Search by name">
 
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- /.card-header -->
+                <?php
+                include "../Controller/ReviewsC.php";
+
+                $rc=new ReviewsC();
+                $list=$rc->afficherreviews();
+                $s4=0;$s3=0;$s2=0;
+                foreach($list as $l){
+                    if ($l['rate']>=8) $s4++;
+                    else if ($l['rate']>=5) $s3++;
+                    else $s2++;
+                }
+                $dataPoints = array(
+                    array("label"=>"Great", "y"=>(float)($s4/$list->rowCount())*100),
+                    array("label"=>"Average", "y"=>(float)($s3/$list->rowCount())*100),
+                    array("label"=>"bad", "y"=>(float)($s2/$list->rowCount())*100)
+                )
+
+                ?>
+                <!DOCTYPE HTML>
+                <html>
+                <head>
+                    <script>
+                        window.onload = function() {
+
+
+                            var chart = new CanvasJS.Chart("chartContainer", {
+                                animationEnabled: true,
+                                title: {
+                                    text: "Food Rating "
+                                },
+                                subtitles: [{
+                                    text: "April 2021"
+                                }],
+                                data: [{
+                                    type: "pie",
+                                    yValueFormatString: "#,##0.00\"%\"",
+                                    indexLabel: "{label} ({y})",
+                                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                                }]
+                            });
+                            chart.render();
+
+                        }
+                    </script>
+                </head>
+                <body>
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+                    <!-- Bar chart -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="far fa-chart-bar"></i>
+                                Bar Chart
+                            </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="bar-chart" style="height: 300px;"></div>
+                        </div>
+
+                        <!-- /.card-body-->
+                    </div>
+                    <!-- /.card -->
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>IsActive</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($list as $l){ ?>
-                    <tr>
-                        <td><?php echo $l['CIN'] ?></td>
-                        <td><?php echo $l['FullName'] ?></td>
-                        <td><?php echo $l['Age'] ?></td>
-                        <td><?php echo $l['Email'] ?></td>
-                        <td><?php echo $l['Password'] ?></td>
-                        <td><?php echo $l['isActive'] ?></td>
-                        <td>
-                            <a href="Deleteuser.php?id=<?PHP echo $l['CIN']; ?>"> Delete </a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.card-body -->
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
     </div>
-</div>
+    <script src="Back/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="Back/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="Back/dist/js/adminlte.min.js"></script>
+    <!-- FLOT CHARTS -->
+    <script src="Back/plugins/flot/jquery.flot.js"></script>
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <script src="Back/plugins/flot/plugins/jquery.flot.resize.js"></script>
+    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+    <script src="Back/plugins/flot/plugins/jquery.flot.pie.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="Back/dist/js/demo.js"></script>
+
+    <script>
+
+        /*
+* BAR CHART
+* ---------
+*/
+        var d= <?php echo json_encode($list); ?>;
+        var arr=new Array(d),a=[];
+        for (var i=0;i<arr.length;i++)
+            a[i]=[i,arr[i]]
+        var bar_data = {
+            //data : [[1,10], [2,8], [3,4], [4,13], [5,17], [6,9]],
+            data : a,
+            bars: { show: true }
+        }
+
+        $.plot('#bar-chart', [bar_data], {
+            grid  : {
+                borderWidth: 1,
+                borderColor: '#f3f3f3',
+                tickColor  : '#f3f3f3'
+            },
+            series: {
+                bars: {
+                    show: true, barWidth: 0.5, align: 'center',
+                },
+            },
+            colors: ['#3c8dbc'],
+
+            xaxis : {
+                ticks: a
+            }
+        })
+        /* END BAR CHART */
+    </script>
 </body>
 </html>

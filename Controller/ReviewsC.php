@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include_once "../config.php";
 include "../Model/Reviews.php";
 
 class ReviewsC
@@ -72,6 +72,17 @@ class ReviewsC
             $query->bindValue(':id',$id);
             $query->execute();
             return $query->fetch(PDO::FETCH_OBJ);
+        }catch (Exception $e ){
+            die('Error: '.$e->getMessage());
+        }
+    }
+    function searchreview($id){
+        $db=config::getConnexion();
+        try {
+            $query=$db->prepare("select * from reviews where (id=:id)");
+            $query->bindValue(':id',$id);
+            $query->execute();
+            return $query->fetch();
         }catch (Exception $e ){
             die('Error: '.$e->getMessage());
         }

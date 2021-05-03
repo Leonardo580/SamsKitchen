@@ -25,8 +25,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <a href="#" class="w3-bar-item w3-button">ACCEUIL</a>
     <a href="#menu" class="w3-bar-item w3-button">MENU</a>
     <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
-    <a href="#myMap" class="w3-bar-item w3-button">SE CONNECTER</a>
- 
+    <a href="#myMap" class="w3-bar-item w3-button">Sign In</a>
+    <a href="#Login" class="w3-bar-item w3-button">Log In</a>
+
     <a href="" class="w3-bar-item w3-button">ARTICLE</a>
   </div>
 </div>
@@ -159,13 +160,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <script>
       function check() {
 
-        let cin=document.getElementById('CIN').value;
+       // let cin=document.getElementById('CIN').value;
         let Age=document.getElementById('Age').value;
         let Email=document.getElementById('Email').value;
         let Password=document.getElementById('Password').value;
-        if (cin.toString().length!==4)
-          alert("CIN must be 4 number");
-        else if (Age<18)
+       // if (cin.toString().length!==4)
+          //alert("CIN must be 4 number");
+        //else
+          if (Age<18)
           alert("you must be above 18 years old");
         else if (Email.match("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")==null)
           alert("Not a valid email address");
@@ -177,16 +179,31 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
       }
     </script>
     <form action="../Adduser.php" target="_blank" method="post" id="SI" onsubmit="return check()">
-      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN" required name="CIN" id="CIN" maxlength="4" ></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="hidden" placeholder="CIN"  name="CIN" id="CIN" maxlength="4" ></p>
+      <p><label>Full Name</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="FullName" id="FullName"></p>
+      <p><label>Age</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age" id="Age"></p>
+      <p><label>Email</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" id="Email" ></p>
+      <p><label>Password</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password" id="Password"></p>
       <p><button class="w3-button w3-light-grey w3-block" type="submit" >Sign In</button></p>
     </form>
   </div>
 </div>
-
+<div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Log In</h1>
+    <form action="../Login.php" target="_blank" method="post" id="Login" >
+      <p><label>Email</label></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" id="E" ></p>
+      <p><label>Password</label></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="password" placeholder="Password" required name="Password" id="P"></p>
+      <p><button class="w3-button w3-light-grey w3-block" type="submit" >LogIn</button></p>
+    </form>
+  </div>
+</div>
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>

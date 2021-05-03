@@ -18,14 +18,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 }
 </style>
 <body>
-
+<?php session_start(); ?>
 <!-- Navbar (sit on top) -->
 <div class="w3-top w3-hide-small">
   <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
     <a href="#" class="w3-bar-item w3-button">ACCEUIL</a>
     <a href="#menu" class="w3-bar-item w3-button">MENU</a>
     <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
-    <a href="#myMap" class="w3-bar-item w3-button">SE CONNECTER</a>
       <div class="w3-dropdown-hover">
           <button class="w3-button">Reviews</button>
           <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -33,9 +32,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               <a href="../Displayreviews.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Display All</a>
           </div>
       </div>
-    <a href="" class="w3-bar-item w3-button">ARTICLE</a>
-    <a href="../Modifyuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Modify Account</a>
-    <a href="../Deleteuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Delete Account</a>
+
+
+      <div class="w3-dropdown-hover">
+          <button class="w3-button">Options</button>
+          <div class="w3-dropdown-content w3-bar-block w3-card-4">
+              <a href="" class="w3-bar-item w3-button"><?php echo $_SESSION['e']; ?></a>
+              <a href="../Modifyuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Modify Account</a>
+              <a href="../Deleteuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Deactivate Account</a>
+              <a href="../email.php" class="w3-bar-item w3-button">FeedBack</a>
+              <a href="../Logout.php" class="w3-bar-item w3-button">Log Out</a>
+          </div>
+      </div>
+
   </div>
 </div>
   

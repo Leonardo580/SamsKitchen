@@ -1,12 +1,14 @@
 <?php
-include "../Controller/UsersC.php";
-$uc=new UsersC();
+include "../Controller/ReviewsC.php";
+$uc=new ReviewsC();
 if (isset($_POST['CIN'])) {
     if (!empty($_POST['CIN']))
-        $list = $uc->searchusers($_POST['CIN']);
-    else $list=$uc->afficherusers();
+        $list = $uc->searchreview($_POST['CIN']);
+    else $list=$uc->afficherreviews();
 }
-else $list=$uc->afficherusers();
+else $list=$uc->afficherreviews();
+if (isset($_POST["sort"]))
+    $list=$uc->sort();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -274,7 +276,10 @@ else $list=$uc->afficherusers();
         </div>
         <!-- /.content-header -->
 
-
+        <form action="" method="post">
+            <input type="hidden" name="sort" value="1">
+            <input type="submit" value="Sort by rate" >
+        </form>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -283,14 +288,7 @@ else $list=$uc->afficherusers();
 
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                        <form action="" method="post">
-                        <input type="text" name="CIN" class="form-control float-right" placeholder="Search by name">
 
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
                         </div>
                     </div>
                 </div>
@@ -300,28 +298,24 @@ else $list=$uc->afficherusers();
                 <table class="table table-hover text-nowrap">
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>IsActive</th>
-                        <th>Delete</th>
+                        <th>Id</th>
+                        <th>rate</th>
+                        <th>title</th>
+                        <th>text</th>
+                        <th>user's Id</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($list as $l){ ?>
-                    <tr>
-                        <td><?php echo $l['CIN'] ?></td>
-                        <td><?php echo $l['FullName'] ?></td>
-                        <td><?php echo $l['Age'] ?></td>
-                        <td><?php echo $l['Email'] ?></td>
-                        <td><?php echo $l['Password'] ?></td>
-                        <td><?php echo $l['isActive'] ?></td>
-                        <td>
-                            <a href="Deleteuser.php?id=<?PHP echo $l['CIN']; ?>"> Delete </a>
-                        </td>
-                    </tr>
+                    <?php
+                    foreach ($list as $l){
+
+                            ?>
+                            <tr>
+                            <td><?php echo $l['id'];?></td>
+                        <td><?php echo $l['rate'];?></td>
+                        <td><?php echo $l['title'];?></td>
+                        <td><?php echo $l['text'];?></td>
+                        <td><?php echo $l['CIN'];?></td>
                     <?php } ?>
                     </tbody>
                 </table>

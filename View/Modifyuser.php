@@ -8,9 +8,9 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
     if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
         $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
         $uc->modifieruser($u,$_GET['CIN']);
-        print_r($_GET);
-        print_r($_POST);
-        //header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
+        //print_r($_GET);
+        //print_r($_POST);
+        header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
     }
     else {
         $err = "Missing Information";
@@ -42,7 +42,7 @@ if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) &&
     <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
         <a href="Front/index_SI.html" class="w3-bar-item w3-button">ACCEUIL</a>
         <a href="" class="w3-bar-item w3-button">ARTICLE</a>
-        <a href="Deleteuser.php" class="w3-bar-item w3-button">Delete Account</a>
+        <a href="Deleteuser.php?CIN=<?PHP echo $_GET['CIN']; ?>" class="w3-bar-item w3-button">Delete Account</a>
     </div>
 </div>
 <div id="error">

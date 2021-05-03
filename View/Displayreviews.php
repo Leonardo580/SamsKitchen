@@ -51,6 +51,7 @@ if (isset($_POST["sort"]))
         </tr>
         <?php
         foreach ($list as $l){
+            if ($l['CIN']==$_GET['CIN']){
             ?>
         <tr>
             <td><?php echo $l['id'];?></td>
@@ -65,7 +66,7 @@ if (isset($_POST["sort"]))
                 <a href="Modifyreview.php?id=<?PHP echo $l['id']; ?>"> Modify </a>
             </td>
         </tr>
-        <?php } ?>
+        <?php }} ?>
     </table>
 
 

@@ -5,12 +5,15 @@ session_start();
 $err="";
 $u=null;
 $uc=new UsersC();
-if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) && isset($_POST['Email']) && isset($_POST['Password']))
-if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
-        $u = new Users(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
-        $uc->ajouteruser($u);
+if ( isset($_POST['FullName']) && isset($_POST['Age']) && isset($_POST['Email']) && isset($_POST['Password']))
+if ( !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email']) && !empty($_POST['Password'])) {
+        $u = new Users(0, ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']), ($_POST['Password']),true);
+   $u->setCIN($uc->getLastId());
+    $uc->ajouteruser($u);
+    $_SESSION['e']=$u->getEmail();
+
         $_SESSION['user']=$u;
-        header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
+       header("Location:Front/index_SI.php?CIN=".$u->getCIN()."");
     }
 else {
     $err = "Missing Information";
