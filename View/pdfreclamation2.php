@@ -1,7 +1,7 @@
  <?php
 include "../Model/Ingredient.php";
 include "../Controller/IngredientC.php";
-require ("pdf/fpdf.php");
+require ("fpdf.php");
 
 
 

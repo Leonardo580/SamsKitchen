@@ -27,7 +27,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
     <a href="#myMap" class="w3-bar-item w3-button">COMMANDE</a>
     <a href="" class="w3-bar-item w3-button">ARTICLE</a>
-    <a href="../modi.php?RefC=<?PHP echo $_GET['RefC']; ?>" class="w3-bar-item w3-button">Modifier Commande</a>
+    <a href="../modiCom.php?RefC=<?PHP echo $_GET['RefC']; ?>" class="w3-bar-item w3-button">Modifier Commande</a>
     <a href="../supprimerCom.php?RefC=<?PHP echo $_GET['RefC']; ?>" class="w3-bar-item w3-button">Supprimer Commande</a>
   </div>
 </div>

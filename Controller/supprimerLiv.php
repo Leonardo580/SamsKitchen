@@ -5,7 +5,7 @@
 
 	if (isset($_GET["IdLivr"])){
 		$livreurC->supprimerLivreur($_GET["IdLivr"]);
-		header('Location:../View/affichage2.php');
+		header('Location:../View/affichageLiv.php');
 	}
 
 ?>

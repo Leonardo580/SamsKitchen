@@ -5,7 +5,7 @@
 
 	if (isset($_GET["RefC"])){
 		$commandesC->supprimerCommande($_GET["RefC"]);
-		header('Location:../View/affichage.php');
+		header('Location:../View/affichageCom.php');
 	}
 
 ?>
