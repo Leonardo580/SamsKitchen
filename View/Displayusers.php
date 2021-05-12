@@ -296,8 +296,9 @@ else $list=$uc->afficherusers();
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+      <div class="card-body table-responsive p-0">
+        <a href="ExportPDF.php" class="btn btn-primary"> Export to PDF</a>
+        <table class="table table-hover text-nowrap">
                     <thead>
                     <tr>
                         <th>id</th>

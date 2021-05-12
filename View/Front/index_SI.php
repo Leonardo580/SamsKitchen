@@ -47,7 +47,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 
   </div>
 </div>
-  
+
 <!-- Header with image -->
 <header class="bgimg w3-display-container w3-grayscale-min" id="home">
   <div class="w3-display-bottomleft w3-padding">
@@ -63,7 +63,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 <!-- Menu Container -->
 <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
   <div class="w3-content">
-  
+
     <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">THE MENU</h1>
     <div class="w3-row w3-center w3-border w3-border-dark-grey">
       <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">
@@ -81,11 +81,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
       <h1><b>Margherita</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$12.50</span></h1>
       <p class="w3-text-grey">Fresh tomatoes, fresh mozzarella, fresh basil</p>
       <hr>
-   
+
       <h1><b>Formaggio</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$15.50</span></h1>
       <p class="w3-text-grey">Four cheeses (mozzarella, parmesan, pecorino, jarlsberg)</p>
       <hr>
-      
+
       <h1><b>Chicken</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$17.00</span></h1>
       <p class="w3-text-grey">Fresh tomatoes, mozzarella, chicken, onions</p>
       <hr>
@@ -106,11 +106,11 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
       <h1><b>Lasagna</b> <span class="w3-tag w3-grey w3-round">Popular</span> <span class="w3-right w3-tag w3-dark-grey w3-round">$13.50</span></h1>
       <p class="w3-text-grey">Special sauce, mozzarella, parmesan, ground beef</p>
       <hr>
-   
+
       <h1><b>Ravioli</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$14.50</span></h1>
       <p class="w3-text-grey">Ravioli filled with cheese</p>
       <hr>
-      
+
       <h1><b>Spaghetti Classica</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$11.00</span></h1>
       <p class="w3-text-grey">Fresh tomatoes, onions, ground beef</p>
       <hr>
@@ -124,15 +124,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
       <h1><b>Today's Soup</b> <span class="w3-tag w3-grey w3-round">Seasonal</span><span class="w3-right w3-tag w3-dark-grey w3-round">$5.50</span></h1>
       <p class="w3-text-grey">Ask the waiter</p>
       <hr>
-   
+
       <h1><b>Bruschetta</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$8.50</span></h1>
       <p class="w3-text-grey">Bread with pesto, tomatoes, onion, garlic</p>
       <hr>
-      
+
       <h1><b>Garlic bread</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$9.50</span></h1>
       <p class="w3-text-grey">Grilled ciabatta, garlic butter, onions</p>
       <hr>
-      
+
       <h1><b>Tomozzarella</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$10.50</span></h1>
       <p class="w3-text-grey">Tomatoes and mozzarella</p>
     </div><br>
@@ -149,7 +149,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <p>We are proud of our interiors.</p>
     <img src="/w3images/onepage_restaurant.jpg" style="width:100%" class="w3-margin-top w3-margin-bottom" alt="Restaurant">
     <h1><b>Opening Hours</b></h1>
-    
+
     <div class="w3-row">
       <div class="w3-col s6">
         <p>Mon & Tue CLOSED</p>
@@ -162,7 +162,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
         <p>Sunday Closed</p>
       </div>
     </div>
-    
+
   </div>
 </div>
 
@@ -174,6 +174,35 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
   <div class="w3-content">
     <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Sign In</h1>
 
+  </div>
+</div>
+<div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">deposer vos articles</h1>
+    <script>
+      function check_az() {
+
+        let cin=document.getElementById('CIN').value;
+        let Age=document.getElementById('Age').value;
+        let Email=document.getElementById('Email').value;
+        if (cin.toString().length!==4)
+          alert("CIN must be 4 number");
+        else if (Age<18)
+          alert("you must be above 18 years old");
+        else if (Email.match("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")==null)
+          alert("Not a valid email address");
+        else return true;
+        return false;
+
+      }
+    </script>
+    <form action="../Addarticles.php" target="_blank" method="post" id="SI" onsubmit="return check_az()">
+      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="l'id de l'auteur" required name="CIN" id="CIN" maxlength="4" ></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="contenue de l'ARTICLE" required name="FullName" id="FullName"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age" id="Age"></p>
+      <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="Your Email" required name="Email" id="Email" ></p>
+      <p><button class="w3-button w3-light-grey w3-block" type="submit" >deposer vos articles ici</button></p>
+    </form>
   </div>
 </div>
 
