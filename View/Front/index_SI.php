@@ -13,7 +13,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 .bgimg {
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("/w3images/pizza.jpg");
+  background-image: url("../../images/sa.jpg");
   min-height: 90%;
 }
 </style>
@@ -25,6 +25,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <a href="#" class="w3-bar-item w3-button">ACCEUIL</a>
     <a href="#menu" class="w3-bar-item w3-button">MENU</a>
     <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
+    <a href="#SI" class="w3-bar-item w3-button" >Article </a>
       <div class="w3-dropdown-hover">
           <button class="w3-button">Reviews</button>
           <div class="w3-dropdown-content w3-bar-block w3-card-4">

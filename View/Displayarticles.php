@@ -313,9 +313,9 @@ else $list=$uc->afficherusers();
                         <td><?php echo $l['FullName'] ?></td>
                         <td><?php echo $l['Age'] ?></td>
                         <td><?php echo $l['Email'] ?></td>
-                        <td><form method="POST" action="deletearticles.php">
+                        <td><form method="GET" action="Deletearticles.php">
 	<input type="submit" name="supprimer" value="supprimer">
-	<input type="hidden" value="<?PHP echo $row['CIN']; ?>" name="CIN">
+	<input type="hidden" value="<?PHP echo $l['CIN']; ?>" name="CIN">
 	</form>
 	</td>
                  <?php } ?>

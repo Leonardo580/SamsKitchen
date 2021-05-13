@@ -1,4 +1,4 @@
-  
+
 <?php
 
 include "../Controller/LivreurC.php";
@@ -239,13 +239,13 @@ if (isset($_POST["sort"]))
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          
-          
-          
+
+
+
         </ul>
         <!-- sidebar menu end-->
       </div>
-    </aside>       
+    </aside>
      </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -299,7 +299,7 @@ if (isset($_POST["sort"]))
     <form action="" method="post">
         <input type="hidden" name="sort" value="1">
         <input type="submit" value="Trier IdLivr" >
-        <TD> <button type="submit" class="btn btn-danger"><a href="pdfreclamation.php?">
+        <TD> <button type="submit" class="btn btn-danger"><a href="pdfreclamation_sy.php?">
    PDF  </a></button></TD>
     </form>
                 <table class="table table-hover text-nowrap">
@@ -331,7 +331,7 @@ if (isset($_POST["sort"]))
             </div>
             <!-- /.card-body -->
 
-        
+
 
         </div>
         <!-- /.card -->
