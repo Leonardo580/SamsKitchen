@@ -1,39 +1,13 @@
-
 <?php
- require('../config.php');
-$db = config::getConnexion();
-$id = $_GET['id'];
-$sql = 'SELECT * FROM fournisseur WHERE id=:id';
-$stat = $db->prepare($sql);
-$stat->execute([':id' => $id ]);
-$r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-
-    isset ($_POST['numero'])&&
-    isset ($_POST['mail'])&&
-    isset ($_POST['adresse'])
- ) {
-   $nom = $_POST['nom'];
-
-   $numero = $_POST['numero'];
-   $mail = $_POST['mail'];
-   $adresse = $_POST['adresse'];
-
-  $sql = 'UPDATE fournisseur SET nom=:nom ,numero=:numero ,mail=:mail ,adresse=:adresse WHERE id=:id';
-  $stat = $db->prepare($sql);
-
-
-
-
-
-
-if ($stat->execute([':nom' => $nom, ':numero' => $numero , ':mail' => $mail , ':adresse' => $adresse, ':id' => $id])) {
-  header("Location: affichage.php");
-  }
+include "../Controller/platC.php";
+$comc=new platC();
+if (isset($_POST['nomplat'])) {
+    if (!empty($_POST['nomplat']))
+        $list = $comc->chercherplat($_POST['nomplat']);
+    else $list=$comc->afficherplat();
 }
-
+else $list=$comc->afficherplat();
 ?>
-
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -51,30 +25,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
- <script>
- $(document).ready(function(){
-      $('#ajouter').click(function(){
-           var image_name = $('#image').val();
-           if(image_name == '')
-           {
-                alert("Please Select Image");
-                return false;
-           }
-           else
-           {
-                var extension = $('#image').val().split('.').pop().toLowerCase();
-                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
-                {
-                     alert('Invalid Image File');
-                     $('#image').val('');
-                     return false;
-                }
-           }
-      });
- });
- </script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -336,92 +286,149 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un fournisseur </h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> Afficher les plats </h3>
+        <TD> <button type="submit" class="btn btn-success"><a href="pdfreclamationplat.php?">pdf
+        </a></button></TD>
 
+        <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
-
-
-        <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
 
-            <div id="message"></div>
-                <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
-                  <div class="form-group ">
-                    <label  class="control-label col-lg-2">Nom</label>
-                    <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
+       <section id="main-content">
+      <section class="wrapper site-min-height">
+
+        <div class="row">
+
+          <div class="">
+                                                                            <?php
+
+                  include_once '../Model/plat.php';
+                  include_once '../Controller/platC.php';
+
+                  $platC=new platC();
+                    $listeplat=$platC->afficherplat();
+
+                  foreach ($listeplat as $fg => $value):
+
+
+
+
+                  ?>
+            <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"></h3>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <form action="" method="post">
+                        <input type="text" name="RefC" class="form-control float-right" placeholder="Search by name">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                        </div>
                     </div>
-                  </div>
+                </div>
+            </div>
 
-                   <div class="form-group ">
-                    <label  class="control-label col-lg-2">Image fournisseur</label>
-                    <div class="col-lg-10">
 
-          <input type="file" name="image" >
+                  <div class="card card-primary card-outline">
+              <div class="card-header">
+                  <h4>plat N<?php echo $value['code']; ?> </h4>
+                  <hr>
 
-                    </div>
-                  </div>
 
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
-                    <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
-                    </div>
-                  </div>
+                <ul class="pricing">
+                  <li>nomplat :<?php echo $value['nomplat']; ?></li>
+                  <?php
+          echo' <img src="data:image/jpeg;base64,'.base64_encode($value['image']).'" alt="" style="width:200px;height:200px;" />';
+          ?>
+                  <li>recette:<?php echo $value['recette']; ?></li>
+                  <li>ingrediants:<?php echo $value['ingrediants']; ?></li>
+                  <li>Prix :<?php echo $value['prix']; ?></li>
 
-                    <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse mail</label>
-                    <div class="col-lg-10">
+                </ul>
+                <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer cette plat ?');" href="../Controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
 
-         <input class="form-control " value="<?= $r->mail; ?>"  name="mail" type="text" required />
-                    </div>
-                  </div>
+                <a class="btn btn-primary" href="modiplat.php?code=<?php echo $value['code']; ?>">Modifier</a>
 
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse local</label>
-                    <div class="col-lg-10">
+              </div>
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                  <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>
+            </div>
+            <?php        endforeach;       ?>
+            <!-- end col-4 -->
 
-                    </div>
-                  </div>
-                </form>
+            <!-- end col-4 -->
+
+            <!-- end col-4 -->
           </div>
+          <?php
+$connecte = mysqli_connect("localhost", "root", "", "projet");
+$queryy = "SELECT code, prix FROM plat GROUP BY prix";
+$resultt = mysqli_query($connecte, $queryy);
+?>
+<html>
+<head>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
+function drawChart() {
+
+ var data = google.visualization.arrayToDataTable([
+   ['code', 'prix'],
+                   <?php
+                   while($row = mysqli_fetch_array($resultt))
+                   {
+                        echo "['".$row["code"]."', ".$row["prix"]."],";
+                   }
+                   ?>
+ ]);
+
+ var options = {
+   title: 'Statistique des prix par rapport id'
+ };
+
+ var chart = new google.visualization.BarChart(document.getElementById('barj'));
+
+ chart.draw(data, options);
+}
+</script>
+</head>
+<body>
+<div id="bar" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
+</div>
+
+          <!--  /col-lg-12 -->
         </div>
+
+        <!--  /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

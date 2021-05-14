@@ -1,21 +1,21 @@
 <?php
-    include "../model/Fournisseur.php";
-    include "../controller/FournisseurC.php";
-   
- 
+    include "../Model/Fournisseur.php";
+    include "../Controller/FournisseurC.php";
 
 
- 
 
-    
+
+
+
+
 
     // create NewFournisseur
-    
-   
+
+
     // create an instance of the controller
     $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));
-    
-    
+
+
             $NewFournisseur = new Fournisseur(
                 $_POST['nom'],
                 $file,
@@ -26,9 +26,9 @@
             $NewFournisseurC = new FournisseurC();
             $NewFournisseurC->ajouterFournisseur($NewFournisseur);
            header('Location:affichage.php');
-       
 
-    
+
+
 
 
 

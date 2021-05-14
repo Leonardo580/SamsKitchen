@@ -70,9 +70,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
 
       <!-- Messages Dropdown Menu -->
-      
+
       <!-- Notifications Dropdown Menu -->
-      
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -124,17 +124,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item menu-open">
+
+
+
+
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                syrine
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="add.php" class="nav-link ">
+                <a href="addCom.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter une commande</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="addLiv.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un livreur</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichageCom.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des commandes </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichageLiv.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des livreurs</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                mehdi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="add.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ajouter un fournisseur</p>
                 </a>
@@ -152,25 +191,96 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="affichage2.php" class="nav-link active">
+                <a href="affichage2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tableau des ingredients</p>
                 </a>
               </li>
             </ul>
           </li>
-    <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          
-          
-          
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Mehrez
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="addrestaurant.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un restaurant</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="addplat1.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un plat</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichagerestaurant.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des restaurants </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichageplat.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des plats</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Simple Link
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+          </a>
+          <li class="nav-item">
+            <a href="Displayusers.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                display all users
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Displayreviews_bk.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Display reviews
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Stat.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Stat
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Displayarticles.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                display all articles
+
+              </p>
+            </a></li>
+
         </ul>
-        <!-- sidebar menu end-->
-      </div>
-    </aside>       
-     </ul>
+
+
+
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -181,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    
+
 
     <!-- Main content -->
     <section id="main-content">
@@ -194,8 +304,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
-            
-              
+
+
        <section id="main-content">
       <section class="wrapper site-min-height">
 
@@ -203,7 +313,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <div class="">
                                                                             <?php
-                  
+
                   include_once '../model/Ingredient.php';
                   include_once '../controller/IngredientC.php';
 
@@ -216,16 +326,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                   ?>
-            
 
-                
+
+
                   <div class="card card-primary card-outline">
               <div class="card-header">
                   <h4>ingredient N<?php echo $value['code']; ?> </h4>
                   <hr>
-                
 
-               
+
+
                 <ul class="pricing">
                   <li>Nom :<?php echo $value['nom']; ?></li>
                   <li>Quantite:<?php echo $value['quantite']; ?></li>
@@ -237,7 +347,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a class="btn btn-primary" href="modi2.php?code=<?php echo $value['code']; ?>">Modifier</a>
 
               </div>
-              
+
             </div>
             <?php        endforeach;       ?>
             <!-- end col-4 -->
@@ -247,16 +357,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- end col-4 -->
           </div>
 
-          
+
           <!--  /col-lg-12 -->
         </div>
-        
+
         <!--  /row -->
       </section>
       <!-- /wrapper -->
-    </section>       
+    </section>
 
-           
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

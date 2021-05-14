@@ -1,36 +1,52 @@
-
 <?php
- require('../config.php');
-$db = config::getConnexion();
-$id = $_GET['id'];
-$sql = 'SELECT * FROM fournisseur WHERE id=:id';
-$stat = $db->prepare($sql);
-$stat->execute([':id' => $id ]);
-$r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-
-    isset ($_POST['numero'])&&
-    isset ($_POST['mail'])&&
-    isset ($_POST['adresse'])
- ) {
-   $nom = $_POST['nom'];
-
-   $numero = $_POST['numero'];
-   $mail = $_POST['mail'];
-   $adresse = $_POST['adresse'];
-
-  $sql = 'UPDATE fournisseur SET nom=:nom ,numero=:numero ,mail=:mail ,adresse=:adresse WHERE id=:id';
-  $stat = $db->prepare($sql);
+    include_once '../Model/restaurant.php';
+    include_once '../Controller/restaurantC.php';
 
 
 
 
+    $error = "";
+
+    // create Newrestaurant
+    $Newrestaurant = null;
+
+    // create an instance of the Controller
+    $NewrestaurantC = new restaurantC();
+    if (
+        isset($_POST["nom"])&&
+
+        isset($_POST["adresse"])&&
+        isset($_POST["numero"])&&
+        isset($_POST["capacite"])&&
+        isset($_POST["idp"])
+
+    ) {
+        if (
+            !empty($_POST["nom"])&&
+
+            !empty($_POST["adresse"])&&
+            !empty($_POST["numero"])&&
+            !empty($_POST["capacite"])&&
+            !empty($_POST["idp"])
+
+        ) {
+            $Newrestaurant = new restaurant(
+                $_POST['nom'],
+                $_POST['numero'],
+                $_POST['adresse'],
+                $_POST['capacite'],
+                $_POST['idp']
+            );
+            $NewrestaurantC->ajouterrestaurant($Newrestaurant);
+           header('Location:add.php');
+        }
+        else
+            $error = "Missing information";
+    }
 
 
-if ($stat->execute([':nom' => $nom, ':numero' => $numero , ':mail' => $mail , ':adresse' => $adresse, ':id' => $id])) {
-  header("Location: affichage.php");
-  }
-}
+
+
 
 ?>
 
@@ -51,30 +67,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
- <script>
- $(document).ready(function(){
-      $('#ajouter').click(function(){
-           var image_name = $('#image').val();
-           if(image_name == '')
-           {
-                alert("Please Select Image");
-                return false;
-           }
-           else
-           {
-                var extension = $('#image').val().split('.').pop().toLowerCase();
-                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
-                {
-                     alert('Invalid Image File');
-                     $('#image').val('');
-                     return false;
-                }
-           }
-      });
- });
- </script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -343,7 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un fournisseur </h1>
+            <h1 class="m-0"> L'ajout d'un restaurant </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -359,14 +351,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-
+        <h3><i class="fa fa-angle-right"></i> Ajouter un restaurant</h3>
+        <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
-
-
-        <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
 
@@ -376,45 +365,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
+           <input class="form-control "  name="nom" type="text" required />
                     </div>
                   </div>
-
-                   <div class="form-group ">
-                    <label  class="control-label col-lg-2">Image fournisseur</label>
-                    <div class="col-lg-10">
-
-          <input type="file" name="image" >
-
-                    </div>
-                  </div>
-
                                <div class="form-group ">
                     <label  class="control-label col-lg-2">Numero</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
+         <input class="form-control "  name="numero" type="number" required />
                     </div>
                   </div>
-
-                    <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse mail</label>
+                               <div class="form-group ">
+                    <label  class="control-label col-lg-2">Adresse</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->mail; ?>"  name="mail" type="text" required />
+           <input class="form-control "  name="adresse" type="text" required />
                     </div>
                   </div>
+
 
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse local</label>
+                    <label  class="control-label col-lg-2">Capacite</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
+           <input class="form-control "  name="capacite" type="number" required />
                     </div>
                   </div>
+
+
+
+              <div class="form-group ">
+                  <label  class="control-label col-lg-9">Plat special</label>
+                  <div class="col-lg-10">
+                     <select id="idp" name="idp" required>
+
+                   <?php
+          include "config.php";
+          require_once '../Model/restaurant.php';
+           $res="SELECT * from plat ";
+           $db = config::getConnexion();
+           $liste=$db->query($res);
+
+          foreach($liste as $row){
+          $option="<option value=".$row['code'].">" . $row['nomplat'];
+
+            echo $option ;
+          }
+                   ?>
+
+                    </select>
+              <div class="card-body">
+
+
+              </div>
+            </div>
+
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                  <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>
+                  <button class="btn btn-primary"  type="submit">Ajouter</button>
 
                     </div>
                   </div>

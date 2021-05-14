@@ -8,7 +8,7 @@ $stat = $db->prepare($sql);
 $stat->execute([':RefC' => $RefC ]);
 $r = $stat->fetch(PDO::FETCH_OBJ);
 if (
-  
+
     isset ($_POST['nomC'])&&
     isset ($_POST['quantiteC'])&&
     isset ($_POST['prixC'])&&
@@ -16,7 +16,7 @@ if (
     isset ($_POST['IdLivr'])
 
  ) {
- 
+
   $nomC = $_POST['nomC'];
   $quantiteC = $_POST['quantiteC'];
   $prixC = $_POST['prixC'];
@@ -98,9 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
 
       <!-- Messages Dropdown Menu -->
-      
+
       <!-- Notifications Dropdown Menu -->
-      
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -152,11 +152,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
+
+
+
+
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                syrine
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -174,31 +178,137 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="affichageCom.php" class="nav-link ">
+                <a href="affichageCom.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tableau des commandes </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="affichageCom.php" class="nav-link active">
+                <a href="affichageLiv.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Modifier des commandes</p>
+                  <p>Tableau des livreurs</p>
                 </a>
               </li>
             </ul>
           </li>
-    <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          
-          
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                mehdi
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="add.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un fournisseur</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="add2.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un ingredient</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichage.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des fournisseurs </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichage2.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des ingredients</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Mehrez
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="addrestaurant.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un restaurant</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="addplat1.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un plat</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichagerestaurant.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des restaurants </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="affichageplat.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tableau des plats</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Simple Link
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+          </a>
+          <li class="nav-item">
+            <a href="Displayusers.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                display all users
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Displayreviews_bk.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Display reviews
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Stat.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Stat
+
+              </p>
+            </a></li>
+          <li class="nav-item">
+            <a href="Displayarticles.php" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                display all articles
+
+              </p>
+            </a></li>
+
         </ul>
-        <!-- sidebar menu end-->
-      </div>
-    </aside> 
-          
-     </ul>
+
+
+
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -217,7 +327,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              
+
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -234,14 +344,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <h3><i class="fa fa-angle-right"></i> Modification d'une commande</h3>
 
-        
+
         <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
-            
+
             <div id="message"></div>
                 <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
-               
+
                                <div class="form-group ">
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
@@ -256,7 +366,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <input class="form-control " value="<?= $r->quantiteC; ?>"  name="quantiteC" type="number" required />
                     </div>
                   </div>
-                  
+
                   <div class="form-group ">
                     <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
@@ -264,7 +374,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <input class="form-control " value="<?= $r->prixC; ?>"  name="prixC" type="number" required />
                     </div>
                   </div>
-                   
+
                   <div class="form-group ">
                     <label  class="control-label col-lg-2">Type</label>
                     <div class="col-lg-10">
@@ -273,7 +383,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
 
-                   
+
                   <div class="form-group ">
                     <label  class="control-label col-lg-2">IdLivreur</label>
                     <div class="col-lg-10">
@@ -285,7 +395,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                   <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>
-                      
+
                     </div>
                   </div>
                 </form>

@@ -1,7 +1,7 @@
  <?php
 include "../Model/Fournisseur.php";
 include "../Controller/FournisseurC.php";
-require ("pdf/fpdf.php");
+require ("fpdf.php");
 
 
 

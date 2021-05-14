@@ -13,7 +13,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 .bgimg {
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("/w3images/pizza.jpg");
+  background-image: url("../images/sa.jpg");
   min-height: 90%;
 }
 </style>

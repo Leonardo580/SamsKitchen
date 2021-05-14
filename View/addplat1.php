@@ -1,39 +1,4 @@
 
-<?php
- require('../config.php');
-$db = config::getConnexion();
-$id = $_GET['id'];
-$sql = 'SELECT * FROM fournisseur WHERE id=:id';
-$stat = $db->prepare($sql);
-$stat->execute([':id' => $id ]);
-$r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-
-    isset ($_POST['numero'])&&
-    isset ($_POST['mail'])&&
-    isset ($_POST['adresse'])
- ) {
-   $nom = $_POST['nom'];
-
-   $numero = $_POST['numero'];
-   $mail = $_POST['mail'];
-   $adresse = $_POST['adresse'];
-
-  $sql = 'UPDATE fournisseur SET nom=:nom ,numero=:numero ,mail=:mail ,adresse=:adresse WHERE id=:id';
-  $stat = $db->prepare($sql);
-
-
-
-
-
-
-if ($stat->execute([':nom' => $nom, ':numero' => $numero , ':mail' => $mail , ':adresse' => $adresse, ':id' => $id])) {
-  header("Location: affichage.php");
-  }
-}
-
-?>
-
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -51,8 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
- <script>
+  <script>
  $(document).ready(function(){
       $('#ajouter').click(function(){
            var image_name = $('#image').val();
@@ -74,7 +38,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
  });
  </script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -343,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un fournisseur </h1>
+            <h1 class="m-0"> L'ajout d'un plat </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -359,62 +322,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-
+        <h3><i class="fa fa-angle-right"></i> Ajouter un plat</h3>
+        <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
-
-
-        <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
 
             <div id="message"></div>
-                <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
+                <form class="cmxform form-horizontal style-form"  method="post" action="addplat.php" enctype="multipart/form-data" id="myForm">
                   <div class="form-group ">
-                    <label  class="control-label col-lg-2">Nom</label>
+                    <label  class="control-label col-lg-2">nomplat</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
+           <input class="form-control "  name="nomplat" type="text" required />
                     </div>
                   </div>
-
-                   <div class="form-group ">
-                    <label  class="control-label col-lg-2">Image fournisseur</label>
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Image plat</label>
                     <div class="col-lg-10">
 
-          <input type="file" name="image" >
+          <input type="file" name="image" required>
 
                     </div>
                   </div>
-
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
+                    <label  class="control-label col-lg-2">recette</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
+         <input class="form-control "  name="recette" type="text" required />
                     </div>
                   </div>
-
-                    <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse mail</label>
+                  <div class="form-group ">
+                    <label  class="control-label col-lg-3">ingredients</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->mail; ?>"  name="mail" type="text" required />
+         <input class="form-control "  name="ingrediants" type="text" required />
                     </div>
                   </div>
-
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse local</label>
+                    <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
+           <input class="form-control "  name="prix" type="float" required />
                     </div>
                   </div>
+
+
+              </div>
+              <div class="card-body">
+
+
+              </div>
+            </div>
+
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                  <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>
+                  <button class="btn btn-primary"  type="submit">Ajouter</button>
 
                     </div>
                   </div>

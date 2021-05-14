@@ -1,39 +1,3 @@
-
-<?php
- require('../config.php');
-$db = config::getConnexion();
-$id = $_GET['id'];
-$sql = 'SELECT * FROM fournisseur WHERE id=:id';
-$stat = $db->prepare($sql);
-$stat->execute([':id' => $id ]);
-$r = $stat->fetch(PDO::FETCH_OBJ);
-if (isset ($_POST['nom'])&&
-
-    isset ($_POST['numero'])&&
-    isset ($_POST['mail'])&&
-    isset ($_POST['adresse'])
- ) {
-   $nom = $_POST['nom'];
-
-   $numero = $_POST['numero'];
-   $mail = $_POST['mail'];
-   $adresse = $_POST['adresse'];
-
-  $sql = 'UPDATE fournisseur SET nom=:nom ,numero=:numero ,mail=:mail ,adresse=:adresse WHERE id=:id';
-  $stat = $db->prepare($sql);
-
-
-
-
-
-
-if ($stat->execute([':nom' => $nom, ':numero' => $numero , ':mail' => $mail , ':adresse' => $adresse, ':id' => $id])) {
-  header("Location: affichage.php");
-  }
-}
-
-?>
-
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -51,30 +15,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-
- <script>
- $(document).ready(function(){
-      $('#ajouter').click(function(){
-           var image_name = $('#image').val();
-           if(image_name == '')
-           {
-                alert("Please Select Image");
-                return false;
-           }
-           else
-           {
-                var extension = $('#image').val().split('.').pop().toLowerCase();
-                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
-                {
-                     alert('Invalid Image File');
-                     $('#image').val('');
-                     return false;
-                }
-           }
-      });
- });
- </script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -336,92 +276,125 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0"> Modifier un fournisseur </h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
     <!-- Main content -->
     <section id="main-content">
       <section class="wrapper">
-
+        <h3><i class="fa fa-angle-right"></i> Afficher les restaurant</h3>
+        <TD> <button type="submit" class="btn btn-success"><a href="pdfreclamationrest.php?">
+   PDF  </a></button></TD>
+        <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
-
-
-        <!-- BASIC FORM ELELEMNTS -->
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
 
-            <div id="message"></div>
-                <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
-                  <div class="form-group ">
-                    <label  class="control-label col-lg-2">Nom</label>
-                    <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
-                    </div>
-                  </div>
+  <section id="main-content">
+      <section class="wrapper site-min-height">
 
-                   <div class="form-group ">
-                    <label  class="control-label col-lg-2">Image fournisseur</label>
-                    <div class="col-lg-10">
+        <div class="row">
 
-          <input type="file" name="image" >
+          <div class="">
+                  <?php
 
-                    </div>
-                  </div>
+                  include_once '../Model/restaurant.php';
+                  include_once '../Controller/restaurantC.php';
 
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
-                    <div class="col-lg-10">
+                  $restaurantC=new restaurantC();
+                    $listerestaurant=$restaurantC->afficherrestaurant();
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
-                    </div>
-                  </div>
+                  foreach ($listerestaurant as $fg => $value):
 
-                    <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse mail</label>
-                    <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->mail; ?>"  name="mail" type="text" required />
-                    </div>
-                  </div>
 
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse local</label>
-                    <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                  <button type="submit" class="btn btn-primary"  type="submit">Modifier</button>
+                  ?>
+            <div class="card card-primary card-outline">
+              <div class="card-header">
 
-                    </div>
-                  </div>
-                </form>
+
+                  <h4>restaurant N<?php echo $value['id']; ?> </h4>
+                  <hr>
+
+                <ul class="pricing">
+                  <li>Nom :<?php echo $value['nom']; ?></li>
+                  <li>Numero:<?php echo $value['numero']; ?></li>
+                  <li>Adresse :<?php echo $value['adresse']; ?></li>
+                  <li>capacite :<?php echo $value['capacite']; ?></li>
+                  <li>code plat: :<?php echo $value['idp']; ?></li>
+                </ul>
+                <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer ce restaurant ?');" href="../Controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
+                <a class="btn btn-primary" href="modirestaurant.php?id=<?php echo $value['id']; ?>">Modifier</a>
+
+              </div>
+
+            </div>
+            <?php        endforeach;       ?>
+            <!-- end col-4 -->
+            <div align="center">
+
+
+<?php
+$connecte = mysqli_connect("localhost", "root", "", "projet");
+$queryy = "SELECT id, capacite FROM restaurant GROUP BY capacite";
+$resultt = mysqli_query($connecte, $queryy);
+?>
+<html>
+<head>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+
+ var data = google.visualization.arrayToDataTable([
+   ['id', 'capacite'],
+                   <?php
+                   while($row = mysqli_fetch_array($resultt))
+                   {
+                        echo "['".$row["id"]."', ".$row["capacite"]."],";
+                   }
+                   ?>
+ ]);
+
+ var options = {
+   title: 'Statistique des capacites par rapport id'
+ };
+
+ var chart = new google.visualization.BarChart(document.getElementById('bar'));
+
+ chart.draw(data, options);
+}
+</script>
+</head>
+<body>
+<div id="bar" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
+</div>
+            <!-- end col-4 -->
+
+            <!-- end col-4 -->
           </div>
 
+
+          <!--  /col-lg-12 -->
         </div>
+
+        <!--  /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
