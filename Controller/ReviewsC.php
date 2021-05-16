@@ -57,7 +57,7 @@ class ReviewsC
             $query->execute([
                 'rate' => $r->getRate(),
                 'title' => $r->getTitle(),
-                'text' => $r->gettext(),
+                'text' => $r->getText(),
                 'id' => $id
             ]);
 

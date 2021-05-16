@@ -10,6 +10,7 @@ if (isset($_POST["Email"]) &&
         !empty($_POST["Password"]))
     {   $message=$userC->connexionUser($_POST["Email"],$_POST["Password"]);
         $_SESSION['e'] = $_POST["Email"];// on stocke dans le tableau une colonne ayant comme nom "e",
+        $_SESSION['CIN']=$message;
         //  avec l'email à l'intérieur
         if($message!='pseudo ou le mot de passe est incorrect'){
 

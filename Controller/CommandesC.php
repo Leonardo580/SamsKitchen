@@ -85,7 +85,18 @@
 
 
 
-
+		function recupererCommandes($RefC){
+			$db=config::getConnexion();
+			try {
+				$query=$db->prepare("select * from Commandes where (RefC =:RefC)");
+			    
+				$query->bindValue(':RefC',$RefC);
+				$query->execute();
+				return $query->fetch(PDO::FETCH_OBJ);
+			}catch (Exception $e ){
+				die('Error: '.$e->getMessage());
+			}
+		}
 
 		function chercherCommandes($RefC){
 			$db=config::getConnexion();

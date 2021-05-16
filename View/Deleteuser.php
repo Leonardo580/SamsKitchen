@@ -8,6 +8,8 @@ if (isset($_GET['CIN'])){
         $userC = new UsersC();
         //$userC->supprimeruser($_GET['CIN']);
         $userC->disableuser($_GET['CIN']);
+      session_start();
+      session_destroy();
         header('Location:Front/index.html');
     }
 }

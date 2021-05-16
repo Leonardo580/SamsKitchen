@@ -34,6 +34,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
           </div>
       </div>
 
+      <div class="w3-dropdown-hover">
+          <button class="w3-button">Commandes</button>
+          <div class="w3-dropdown-content w3-bar-block w3-card-4">
+              <a href="../addComFront.php?RefC=<?PHP echo $_GET['RefC']; ?>" class="w3-bar-item w3-button">Ajouter</a>
+              <a href="../affichageComFront.php?RefC=<?PHP echo $_GET['RefC']; ?>" class="w3-bar-item w3-button">Afficher liste de commandes</a>
+          </div>
+      </div>
+
 
       <div class="w3-dropdown-hover">
           <button class="w3-button">Options</button>

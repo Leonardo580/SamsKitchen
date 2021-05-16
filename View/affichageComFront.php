@@ -1,11 +1,11 @@
 <?php
 
-include "../Controller/ReviewsC.php";
+include "../Controller/CommandesC.php";
 
-$rc=new ReviewsC();
-$list=$rc->afficherreviews();
+$comc=new CommandesC();
+$list=$comc->afficherCommande();
 if (isset($_POST["sort"]))
-    $list=$rc->sort();
+    $list=$comc->sort();
 ?>
 <html>
 <title>W3.CSS Template</title>
@@ -34,41 +34,32 @@ if (isset($_POST["sort"]))
         <a href="#menu" class="w3-bar-item w3-button">MENU</a>
         <a href="#about" class="w3-bar-item w3-button">A PROPOS</a>
     </div>
-    <h1>Display All</h1><hr>
-    <form action="" method="post">
-        <input type="hidden" name="sort" value="1">
-        <input type="submit" value="Sort by rate" >
-    </form>
+    <h1>Liste des commandes</h1><hr>
+  
     <table class="w3-table">
         <tr>
-            <th>Id</th>
-            <th>rate</th>
-            <th>title</th>
-            <th>text</th>
-            <th>user's CIN</th>
-            <th>Delete</th>
-            <th>modifier</th>
+                        <th>Référence</th>
+                        <th>Nom</th>
+                        <th>Quantite</th>
+                        <th>PrixC</th>
+                        <th>TypeC</th>
+                        <th>idLivr</th>
+                        <th>Supprimer </th>
+                        <th>Modifier</th>
         </tr>
-        <?php
-        session_start();
-        $_SESSION['CIN']=$_GET['CIN'];
-        foreach ($list as $l){
-            if ($l['CIN']==$_GET['CIN']){
-            ?>
+        
+        <?php foreach ($list as $l){ ?>
         <tr>
-            <td><?php echo $l['id'];?></td>
-            <td><?php echo $l['rate'];?></td>
-            <td><?php echo $l['title'];?></td>
-            <td><?php echo $l['text'];?></td>
-            <td><?php echo $l['CIN'];?></td>
-            <td>
-                <a href="Deletereview.php?id=<?PHP echo $l['id']; ?>"> Delete </a>
-            </td>
-            <td>
-                <a href="Modifyreview.php?id=<?PHP echo $l['id']; ?>"> Modify </a>
-            </td>
-        </tr>
-        <?php }} ?>
+                        <td><?php echo $l['RefC'] ?></td>
+                        <td><?php echo $l['nomC'] ?></td>
+                        <td><?php echo $l['quantiteC'] ?></td>
+                        <td><?php echo $l['prixC'] ?></td>
+                        <td><?php echo $l['typeC'] ?></td>
+                        <td><?php echo $l['IdLivr'] ?></td>
+                        <td><a class="btn btn-outline-info" OnClick="return confirm('Voulez vous vraiment supprimer cette commandes ?');" href="../Controller/supprimerComFront.php?RefC=<?php echo $l['RefC']; ?>">Supprimer</a></td>
+                        <td><a class="btn btn-outline-info" href="modiComFront.php?RefC=<?php echo $l['RefC']; ?>">Modifier</a></td>
+                    </tr>
+        <?php } ?>
     </table>
 
 
@@ -97,4 +88,3 @@ if (isset($_POST["sort"]))
 
 </body>
 </html>
-

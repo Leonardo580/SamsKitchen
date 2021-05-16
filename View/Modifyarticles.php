@@ -8,10 +8,10 @@ $uc=new articlesC();
 if (isset($_POST['CIN']) && isset($_POST['FullName']) && isset($_POST['Age']) && isset($_POST['Email']))
     if (!empty($_POST['CIN']) && !empty($_POST['FullName']) && !empty($_POST['Age']) && !empty($_POST['Email'])) {
         $u = new articles(($_POST['CIN']), ($_POST['FullName']), ($_POST['Age']), ($_POST['Email']));
-        $uc->modifieruser($u,$_GET['CIN']);
-        print_r($_GET);
-        print_r($_POST);
-        header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
+        $uc->modifieruser($u,$_POST['CIN']);
+    
+        
+        header("Location:Front/index_SI_az.php?CIN=".$_POST['CIN']."");
     }
     else {
         $err = "Missing Information";
@@ -80,11 +80,11 @@ if (isset($_GET['CIN'])) {
     <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="CIN"  maxlength="4" disabled value="<?php echo $user->CIN; ?>"></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="hidden" placeholder="CIN"  name="CIN"  value="<?php echo $user->CIN; ?>"></p>
     <p><label>contenue de l'article</label></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="contenue de l'article" required name="contenue" value="<?php echo $user->FullName; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="contenue de l'article" required name="FullName" value="<?php echo $user->FullName; ?>"></p>
     <p><label>Age</label></p>
     <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="Age" required name="Age" value="<?php echo $user->Age; ?>"></p>
     <p><label>contact</label></p>
-    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="contact de l'auteur" required name="contact" value="<?php echo $user->Email; ?>"></p>
+    <p><input class="w3-input w3-padding-16 w3-border" type="email" placeholder="contact de l'auteur" required name="Email" value="<?php echo $user->Email; ?>"></p>
     <p><button class="w3-button w3-light-grey w3-block" type="submit" >Modify</button></p>
 </form>
 <?php } ?>

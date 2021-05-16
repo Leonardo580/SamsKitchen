@@ -1,40 +1,31 @@
-
 <?php
- require('../config.php');
-$db = config::getConnexion();
-$RefC = $_GET['RefC'];
-$sql = 'SELECT * FROM Commandes WHERE RefC=:RefC';
-$stat = $db->prepare($sql);
-$stat->execute([':RefC' => $RefC ]);
-$r = $stat->fetch(PDO::FETCH_OBJ);
+include_once "../Controller/CommandesC.php";
+include_once "../Model/Commandes.php";
+$err="";
+$r=null;
+$rc=new CommandesC();
 if (
-
     isset ($_POST['nomC'])&&
     isset ($_POST['quantiteC'])&&
     isset ($_POST['prixC'])&&
     isset ($_POST['typeC'])&&
     isset ($_POST['IdLivr'])
-
- ) {
-
-  $nomC = $_POST['nomC'];
-  $quantiteC = $_POST['quantiteC'];
-  $prixC = $_POST['prixC'];
-  $typeC = $_POST['typeC'];
-  $IdLivr = $_POST['IdLivr'];
-
-$sql = 'UPDATE Commandes SET nomC=:nomC,quantiteC=:quantiteC,prixC=:prixC,typeC=:typeC,IdLivr:=IdLivr  WHERE RefC=:RefC';
-$stat = $db->prepare($sql);
-
-
-
-
-
-if ($stat->execute([  ':RefC' => $RefC ,':nomC' => $nomC, ':quantiteC' => $quantiteC,':prixC' => $prixC , ':typeC' => $typeC ,':IdLivr' => $IdLivr])) {
-  header("Location: affichageCom.php");
-  }
-}
-
+  )
+    if (
+        !empty($_POST['nomC']) && 
+        !empty($_POST['quantiteC']) &&
+        !empty($_POST['prixC']) &&
+        !empty($_POST['typeC']) &&
+        !empty($_POST['IdLivr'])
+        ){
+        $r=new Commandes($_POST['RefC'],$_POST['nomC'], $_POST['quantiteC'], $_POST['prixC'],$_POST['typeC'],$_POST['IdLivr']);
+        $rc->modifierCommande($r,$_GET['RefC']);
+        header("Location:affichageCom.php?RefC=".$_POST['RefC']."");
+    }
+    else {
+        $err = "Missing Information";
+        echo "<script type='text/javascript'>alert('$err');</script>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -350,20 +341,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-6 col-md-6 col-sm-6">
 
             <div id="message"></div>
+            <?php
+             if (isset($_GET['RefC'])){
+            $re=$rc->recupererCommandes($_GET['RefC']);
+            
+         ?>
+
+
                 <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
-
-                               <div class="form-group ">
-                    <label  class="control-label col-lg-2">Nom</label>
-                    <div class="col-lg-10">
-
-         <input class="form-control " value="<?= $r->nomC; ?>"  name="nomC" type="text" required />
+          
+                <input class="form-control " type="hidden" name="RefC" value="<?php echo $_GET['RefC'];?>" >
+                     <div class="form-group ">
+                     <label  class="control-label col-lg-2">Nom</label>
+                     <div class="col-lg-10">
+                     <input class="form-control " value="<?php echo $re->nomC;?>"  name="nomC" type="text" required />
+                     </div>
                     </div>
-                  </div>
-                               <div class="form-group ">
+                    <div class="form-group ">
                     <label  class="control-label col-lg-2">Quantite</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->quantiteC; ?>"  name="quantiteC" type="number" required />
+           <input class="form-control " value="<?php echo $re->quantiteC;?>"  name="quantiteC" type="number" required />
                     </div>
                   </div>
 
@@ -371,7 +369,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->prixC; ?>"  name="prixC" type="number" required />
+           <input class="form-control " value="<?php echo $re->prixC;?>"  name="prixC" type="number" required />
                     </div>
                   </div>
 
@@ -379,7 +377,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Type</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->typeC; ?>"  name="typeC" type="text" required />
+           <input class="form-control " value="<?php echo $re->typeC;?>"  name="typeC" type="text" required />
                     </div>
                   </div>
 
@@ -388,7 +386,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">IdLivreur</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->IdLivr; ?>"  name="IdLivr" type="number" required />
+           <input class="form-control " value="<?php echo $re->IdLivr;?>"  name="IdLivr" type="number" required />
                     </div>
                   </div>
 
@@ -399,6 +397,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
                 </form>
+
+                <?php } ?>
           </div>
 
         </div>

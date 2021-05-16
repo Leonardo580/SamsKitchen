@@ -45,8 +45,7 @@ class articlesC
             'UPDATE arti set
             FullName=:FullName,
             Age=:Age,
-            Email=:Email,
-           
+            Email=:Email
             where (CIN=:CIN)');
             $query->execute([
                 'FullName' => $user->getFullName(),

@@ -8,7 +8,7 @@ if (isset($_POST['rate']) && isset($_POST['title']) && isset($_POST['text']))
     if (!empty($_POST['rate']) && !empty($_POST['title']) && !empty($_POST['text'])){
        $r=new comments(0,$_POST['rate'], $_POST['title'], $_POST['text'],$_POST['CIN']);
        $rc->ajouterreview($r);
-       header("Location:Front/index_SI.php?CIN=".$_POST['CIN']."");
+       header("Location:Front/index_SI_az.php?CIN=".$_POST['CIN']."");
     }
 else {
     $err = "Missing Information";

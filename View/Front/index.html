@@ -204,23 +204,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
         // let Password=document.getElementById('Password').value;
         if (RefC.toString().length!==4)
           alert("RefC must be 4 number");
-        // else if (Age<18)
-        //   alert("you must be above 18 years old");
-        // else if (prixC.match("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")==null)
-        //   alert("Not a valid prixC address");
-        // else if (Password.match("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")==null)
-        //   alert("your password is too weak");
-        // else return true;
-        // return false;
+
 
       }
     </script>
-    <form action="../add.php" target="_blank" method="post" id="myMap_sy" onsubmit="return check_sy()">
+    <form action="../addComFront.php" target="_blank" method="post" id="myMap_sy" onsubmit="return check_sy()">
+      <p><label>Référence</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="RefC" required name="RefC" id="RefC" maxlength="4" ></p>
+      <p><label>Nom</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="nomC" required name="nomC" id="nomC"></p>
+      <p><label>Quantite</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="quantiteC" required name="quantiteC" id="quantiteC"></p>
+      <p><label>Prix</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="prixC" required name="prixC" id="prixC" ></p>
+      <p><label>Type</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="typeC" required name="typeC" id="typeC"></p>
+      <p><label>Id Livreur</label></p>
       <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="IdLivr" required name="IdLivr" id="IdLivr"></p>
       <p><button class="w3-button w3-light-grey w3-block" type="submit" >Ajouter</button></p>
     </form>

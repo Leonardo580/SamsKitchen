@@ -423,7 +423,7 @@ else $list=$uc->afficherusers();
                         <td><?php echo $l['Email'] ?></td>
                         <td><form method="GET" action="Deletearticles.php">
 	<input type="submit" name="supprimer" value="supprimer">
-	<input type="hidden" value="<?PHP echo $l['CIN']; ?>" name="CIN">
+	<input type="hidden" value="<?PHP echo $l['CIN']; ?>" name="CINAR">
 	</form>
 	</td>
                  <?php } ?>
