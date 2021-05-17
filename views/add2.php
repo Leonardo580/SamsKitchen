@@ -18,7 +18,9 @@
  
         isset($_POST["quantite"])&&
 
-        isset($_POST["prix"])
+        isset($_POST["prix"])&&
+
+        isset($_POST["idf"])
 
     ) {
         if (
@@ -26,13 +28,16 @@
         
             !empty($_POST["quantite"])&&
 
-            !empty($_POST["prix"])
+            !empty($_POST["prix"])&&
+
+            !empty($_POST["idf"])
 
         ) {
             $NewIngredient = new Ingredient(
                 $_POST['nom'],
                 $_POST['quantite'],
-                $_POST['prix']
+                $_POST['prix'],
+                $_POST['idf']
             );
             $NewIngredientC->ajouterIngredient($NewIngredient);
            header('Location:add2.php');
@@ -259,7 +264,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Quantite</label>
                     <div class="col-lg-10">
 
-         <input class="form-control "  name="quantite" type="number" required />
+           <input class="form-control "  name="quantite" type="number" required />
                     </div>
                   </div>
                                <div class="form-group ">
@@ -270,13 +275,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                   </div>
 
-                      
-              </div>
-              <div class="card-body">
-                
-                
-              </div>
-            </div>
+                 <div class="form-group ">
+                  <label  class="control-label col-lg-2">Fournisseur</label>
+                  <div class="col-lg-10">
+                     <select id="idf" name="idf" required>
+
+                   <?php
+          include "config.php";
+          require_once '../model/Ingredient.php';
+           $res="SELECT * from fournisseur ";
+           $db = config::getConnexion();
+           $liste=$db->query($res);
+
+          foreach($liste as $row){
+          $option="<option value=".$row['id'].">" . $row['nom'];
+
+            echo $option ;
+          }
+                   ?>
+
+                    </select>
+
+                  </div>
+                 </div>
 
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
@@ -284,6 +305,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       
                     </div>
                   </div>
+
+                 
+                
+                  
                 </form>
           </div>
 

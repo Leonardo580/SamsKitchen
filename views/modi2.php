@@ -172,7 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="modifier2.php" class="nav-link active">
+                <a href="modi2.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Modifier des ingredients</p>
                 </a>
@@ -226,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="card card-primary card-outline">
               <div class="card-header">
 
-        <h3><i class="fa fa-angle-right"></i> Modification un fournisseur</h3>
+        <h3><i class="fa fa-angle-right"></i> Modification des ingredients</h3>
 
         
         <!-- BASIC FORM ELELEMNTS -->
@@ -246,14 +246,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <label  class="control-label col-lg-2">Quantite</label>
                     <div class="col-lg-10">
 
-         <input class="form-control " value="<?= $r->numero; ?>"  name="quantite" type="number" required />
+         <input class="form-control " value="<?= $r->quantite; ?>"  name="quantite" type="number" required />
                     </div>
                   </div>
                                <div class="form-group ">
                     <label  class="control-label col-lg-2">Prix</label>
                     <div class="col-lg-10">
 
-           <input class="form-control " value="<?= $r->adresse; ?>"  name="prix" type="float" required />
+           <input class="form-control " value="<?= $r->prix; ?>"  name="prix" type="float" required />
                     </div>
                   </div>
                   <div class="form-group">

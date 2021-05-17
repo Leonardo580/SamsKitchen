@@ -44,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" id="myInput">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -99,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="search_text">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
@@ -176,12 +176,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section id="main-content">
       <section class="wrapper">
         <h3><i class="fa fa-angle-right"></i> Afficher les ingredients </h3>
+        <a class="btn btn-primary" href="../views/tri.php?prix=<?php echo $value['prix']; ?>">Trier</a>
+         <TD> <button type="submit" class="btn btn-success"><a href="pdfreclamation2.php?">
+   PDF  </a></button></TD>
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
 
         <div class="row mt">
           <div class="col-lg-6 col-md-6 col-sm-6">
+
+             
+
+          
             
               
        <section id="main-content">
@@ -189,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="row">
 
-          <div class="content-wrapper">
+          <div class="">
                                                                             <?php
                   
                   include_once '../model/Ingredient.php';
@@ -205,22 +212,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   ?>
             
+<div class="card card-primary card-outline myfourni " data-value="<?php echo $value['nom']; echo $value['quantite']; echo $value['prix']; echo $value['idf']; ?> ">
+              <div class="card-header" id="search1" >
 
                 
-                  <div class="card card-primary card-outline">
-              <div class="card-header">
                   <h4>ingredient N<?php echo $value['code']; ?> </h4>
                   <hr>
                 
 
                
                 <ul class="pricing">
-                  <li>Nom :<?php echo $value['nom']; ?></li>
-                  <li>Quantite:<?php echo $value['quantite']; ?></li>
-                  <li>Prix :<?php echo $value['prix']; ?></li>
+                  <li>Nom : <?php echo $value['nom']; ?></li>
+                  <li>Quantite : <?php echo $value['quantite']; ?></li>
+                  <li>Prix : <?php echo $value['prix']; ?></li>
+                  <li>Fournisseur : <?php echo $value['idf']; ?></li>
 
                 </ul>
-                <a class="btn btn-primary" href="../controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
+                <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer cette ingredient ?');"
+                 href="../controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
 
                 <a class="btn btn-primary" href="modi2.php?code=<?php echo $value['code']; ?>">Modifier</a>
 
@@ -228,6 +237,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
               
             </div>
             <?php        endforeach;       ?>
+
+          </div> 
+           <div align="center">
+
+
+       <?php  
+ $connecte = mysqli_connect("localhost", "root", "", "projet");  
+ $queryy = "SELECT quantite, prix FROM ingredient GROUP BY quantite";  
+ $resultt = mysqli_query($connecte, $queryy);  
+ ?>
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Prix', 'quantite'],  
+                          <?php  
+                          while($row = mysqli_fetch_array($resultt))  
+                          {  
+                               echo "['".$row["quantite"]."DT', ".$row["prix"]."],";  
+                          }  
+                          ?>  
+        ]);
+
+        var options = {
+          title: 'Statistique des nombres des ingredients par rapport les prix'
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('bar'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="bar" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+</div>
+
+           <script type="text/javascript">
+          $(document).ready(function(){
+          $("#search_text").keyup(function(){
+          var search = $(this).val();
+          $.ajax({
+          url:'recherche2.php',
+          method:'POST',
+          data:{query:search},
+          success:function(response){
+          $("#search1").html(response);
+          }
+          });
+          });
+          });
+        </script>
+
+        <script>
+    document.getElementById("myInput").addEventListener("keyup",function (){
+      console.log(document.getElementById("myInput").value)
+        document.querySelectorAll(".myfourni").forEach(function (div){
+            if(!div.getAttribute('data-value').toUpperCase().includes(document.getElementById("myInput").value.toUpperCase())){
+
+                div.style.display="none";
+            }else{
+                div.style.display="flex";
+
+            }
+        });
+    });
+
+</script>
             <!-- end col-4 -->
 
             <!-- end col-4 -->
@@ -235,16 +320,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- end col-4 -->
           </div>
 
+           
           
           <!--  /col-lg-12 -->
         </div>
         
+
         <!--  /row -->
       </section>
       <!-- /wrapper -->
     </section>       
+        
 
-           
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

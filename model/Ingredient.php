@@ -4,13 +4,14 @@
 		private ?string $nom = null;
 		private ?int    $quantite = null;
 		private ?float $prix = null;
-		
-		function __construct(string $nom, int $quantite, float $prix){
+	    private ?int    $idf = null;
+		function __construct(string $nom, int $quantite, float $prix, int $idf){
 			
 			
 			$this->nom=$nom;
-			$this->quantite=$prix;
+			$this->quantite=$quantite;
 			$this->prix=$prix;
+            $this->idf=$idf;
 		}
 		
 		function getCode(): int{
@@ -27,6 +28,9 @@
 			return $this->prix;
 		}
 		
+		function getIdf(): int{
+			return $this->idf;
+		}
 
 		function setNom(string $nom): void{
 			$this->nom=$nom;
@@ -36,6 +40,9 @@
 		}
 		function setPrix(string $prix): void{
 			$this->prix=$prix;
+		}
+		function setIdf(int $idf): void{
+			$this->idf=$idf;
 		}
 		}
 ?>

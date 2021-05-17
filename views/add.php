@@ -1,46 +1,4 @@
-<?php
-    include_once '../model/Fournisseur.php';
-    include_once '../controller/FournisseurC.php';
- 
 
-
-
-    $error = "";
-
-    // create NewFournisseur
-    $NewFournisseur = null;
-
-    // create an instance of the controller
-    $NewFournisseurC = new FournisseurC();
-    if (
-        isset($_POST["nom"])&&
- 
-        isset($_POST["adresse"])
-
-    ) {
-        if (
-            !empty($_POST["nom"])&&
-        
-            !empty($_POST["adresse"])
-
-        ) {
-            $NewFournisseur = new Fournisseur(
-                $_POST['nom'],
-                $_POST['numero'],
-                $_POST['adresse']
-            );
-            $NewFournisseurC->ajouterFournisseur($NewFournisseur);
-           header('Location:add.php');
-        }
-        else
-            $error = "Missing information";
-    }
-
-    
-
-
-
-?>
 
 <!DOCTYPE html>
 <!--
@@ -59,6 +17,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+  <script>
+ $(document).ready(function(){
+      $('#ajouter').click(function(){
+           var image_name = $('#image').val();
+           if(image_name == '')
+           {
+                alert("Please Select Image");
+                return false;
+           }
+           else
+           {
+                var extension = $('#image').val().split('.').pop().toLowerCase();
+                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
+                {
+                     alert('Invalid Image File');
+                     $('#image').val('');
+                     return false;
+                }
+           }
+      });
+ });
+ </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -242,26 +224,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-lg-6 col-md-6 col-sm-6">
             
             <div id="message"></div>
-                <form class="cmxform form-horizontal style-form"  method="post" action="" id="myForm">
+                <form class="cmxform form-horizontal style-form"  method="post" action="ajoutFournisseur.php" id="myForm" enctype="multipart/form-data" class="com-mail">
                   <div class="form-group ">
                     <label  class="control-label col-lg-2">Nom</label>
                     <div class="col-lg-10">
 
-           <input class="form-control "  name="nom" type="text" required />
+           <input class="form-control "  name="nom" type="text" required id="nom" />
+                    </div>
+                  </div>
+
+  <div class="form-group ">
+                    <label  class="control-label col-lg-2">Image fournisseur</label>
+                    <div class="col-lg-10">
+
+          <input type="file" name="image" required>
+           
+                    </div>
+                  </div>
+
+
+                               <div class="form-group ">
+                    <label  class="control-label col-lg-3">Numero telephone</label>
+                    <div class="col-lg-10">
+
+         <input class="form-control "  name="numero" type="number" required  id="numero" />
                     </div>
                   </div>
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Numero</label>
+                    <label  class="control-label col-lg-3">Adresse mail </label>
                     <div class="col-lg-10">
 
-         <input class="form-control "  name="numero" type="number" required />
+         <input class="form-control "  name="mail" type="text" required  id="mail" />
                     </div>
                   </div>
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse</label>
+                    <label  class="control-label col-lg-3">Adresse local</label>
                     <div class="col-lg-10">
 
-           <input class="form-control "  name="adresse" type="text" required />
+           <input class="form-control "  name="adresse" type="text" required  id="adresse" />
                     </div>
                   </div>
 

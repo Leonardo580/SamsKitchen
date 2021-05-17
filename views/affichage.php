@@ -15,6 +15,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+  
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -44,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" id="myInput">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -99,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="search_text">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
@@ -176,6 +183,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <section id="main-content">
       <section class="wrapper">
         <h3><i class="fa fa-angle-right"></i> Afficher les fournisseur</h3>
+          <a class="btn btn-primary" href="../views/tri.php?nom=<?php echo $value['nom']; ?>">Trier</a>
+
+          <TD> <button type="submit" class="btn btn-danger"><a href="pdfreclamation.php?">
+   PDF  </a></button></TD>
+
+
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
               <div class="card-header">
@@ -189,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div class="row">
 
-          <div class="content-wrapper">
+          <div class="">
                   <?php
                   
                   include_once '../model/Fournisseur.php';
@@ -204,26 +217,70 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                   ?>
-            <div class="card card-primary card-outline">
-              <div class="card-header">
+                 
+            <div class="card card-primary card-outline myfourni " data-value="<?php echo $value['nom']; echo $value['numero']; echo $value['mail']; echo $value['adresse']; ?> ">
+              <div class="card-header" id="search1" >
 
                 
                   <h4>fournisseur N<?php echo $value['id']; ?> </h4>
                   <hr>
                 
                 <ul class="pricing">
-                  <li>Nom :<?php echo $value['nom']; ?></li>
-                  <li>Numero:<?php echo $value['numero']; ?></li>
-                  <li>Adresse :<?php echo $value['adresse']; ?></li>
+                  <li>Nom : <?php echo $value['nom']; ?></li>
+                  
+ <?php
+          echo' <img src="data:image/jpeg;base64,'.base64_encode($value['img']).'" alt="" style="width:200px;height:200px;" />';
+          ?>  
+                  <li>Numero telephone : <?php echo $value['numero']; ?></li>
+                  <li>Adresse mail : <?php echo $value['mail']; ?></li>
+                  <li>Adresse local : <?php echo $value['adresse']; ?></li>
 
                 </ul>
-                <a class="btn btn-primary" href="../controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
+                <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer ce fournisseur !!! ?');"
+                   href="../controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
                 <a class="btn btn-primary" href="modi.php?id=<?php echo $value['id']; ?>">Modifier</a>
 
+                <a  href="mailing1.php?mail=<?php echo $value['mail']; ?> & nom=<?php echo $value['nom']; ?>">mail</a>
+
+ 
+ 
+  
               </div>
               
             </div>
             <?php        endforeach;       ?>
+
+           <script type="text/javascript">
+          $(document).ready(function(){
+          $("#search_text").keyup(function(){
+          var search = $(this).val();
+          $.ajax({
+          url:'recherche.php',
+          method:'POST',
+          data:{query:search},
+          success:function(response){
+          $("#search1").html(response);
+          }
+          });
+          });
+          });
+        </script>
+
+        <script>
+    document.getElementById("myInput").addEventListener("keyup",function (){
+      console.log(document.getElementById("myInput").value)
+        document.querySelectorAll(".myfourni").forEach(function (div){
+            if(!div.getAttribute('data-value').toUpperCase().includes(document.getElementById("myInput").value.toUpperCase())){
+
+                div.style.display="none";
+            }else{
+                div.style.display="flex";
+
+            }
+        });
+    });
+
+</script>
             <!-- end col-4 -->
 
             <!-- end col-4 -->
@@ -238,7 +295,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!--  /row -->
       </section>
       <!-- /wrapper -->
-    </section>    
+    </section> 
 
            
     <!-- /.content -->

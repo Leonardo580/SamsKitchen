@@ -8,13 +8,18 @@ $stat = $db->prepare($sql);
 $stat->execute([':id' => $id ]);
 $r = $stat->fetch(PDO::FETCH_OBJ);
 if (isset ($_POST['nom'])&&
-    isset ($_POST['adresse'])&&
-    isset ($_POST['numero'])
+
+    isset ($_POST['numero'])&&
+    isset ($_POST['mail'])&&
+    isset ($_POST['adresse'])
  ) {
    $nom = $_POST['nom'];
-   $adresse = $_POST['adresse'];
+   
    $numero = $_POST['numero'];
-  $sql = 'UPDATE fournisseur SET nom=:nom ,adresse=:adresse,numero=:numero WHERE id=:id';
+   $mail = $_POST['mail'];
+   $adresse = $_POST['adresse'];
+   
+  $sql = 'UPDATE fournisseur SET nom=:nom ,numero=:numero ,mail=:mail ,adresse=:adresse WHERE id=:id';
   $stat = $db->prepare($sql);
 
 
@@ -22,7 +27,7 @@ if (isset ($_POST['nom'])&&
 
 
 
-if ($stat->execute([':nom' => $nom, ':adresse' => $adresse,':numero' => $numero , ':id' => $id])) {
+if ($stat->execute([':nom' => $nom, ':numero' => $numero , ':mail' => $mail , ':adresse' => $adresse, ':id' => $id])) {
   header("Location: affichage.php");
   }
 }
@@ -46,6 +51,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+ <script>
+ $(document).ready(function(){
+      $('#ajouter').click(function(){
+           var image_name = $('#image').val();
+           if(image_name == '')
+           {
+                alert("Please Select Image");
+                return false;
+           }
+           else
+           {
+                var extension = $('#image').val().split('.').pop().toLowerCase();
+                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
+                {
+                     alert('Invalid Image File');
+                     $('#image').val('');
+                     return false;
+                }
+           }
+      });
+ });
+ </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -172,7 +201,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
               <li class="nav-item">
-                <a href="modifier.php" class="nav-link active">
+                <a href="modi.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Modifier des fournisseurs</p>
                 </a>
@@ -240,6 +269,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
            <input class="form-control " value="<?= $r->nom; ?>"  name="nom" type="text" required />
                     </div>
                   </div>
+
+                   <div class="form-group ">
+                    <label  class="control-label col-lg-2">Image fournisseur</label>
+                    <div class="col-lg-10">
+
+          <input type="file" name="image" >
+           
+                    </div>
+                  </div>
+
                                <div class="form-group ">
                     <label  class="control-label col-lg-2">Numero</label>
                     <div class="col-lg-10">
@@ -247,8 +286,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
          <input class="form-control " value="<?= $r->numero; ?>"  name="numero" type="number" required />
                     </div>
                   </div>
+
+                    <div class="form-group ">
+                    <label  class="control-label col-lg-2">Adresse mail</label>
+                    <div class="col-lg-10">
+
+         <input class="form-control " value="<?= $r->mail; ?>"  name="mail" type="text" required />
+                    </div>
+                  </div>
+
                                <div class="form-group ">
-                    <label  class="control-label col-lg-2">Adresse</label>
+                    <label  class="control-label col-lg-2">Adresse local</label>
                     <div class="col-lg-10">
 
            <input class="form-control " value="<?= $r->adresse; ?>"  name="adresse" type="text" required />
