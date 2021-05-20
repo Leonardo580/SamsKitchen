@@ -35,7 +35,7 @@ try {
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'mail recu';
-    $mail->Body    = 'Cher '.$nom.' , nous vous informons que nous avons besoin de vos ingredients. '<br>' Merci de nous contacter.';
+    $mail->Body    = 'Cher '.$nom.' , nous vous informons que nous avons besoin de vos ingredients.  Merci de nous contacter.';
 
     $mail->send();
     echo 'Message has been sent';
