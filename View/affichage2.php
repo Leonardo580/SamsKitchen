@@ -44,7 +44,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" id="myInput">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -99,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" id="search_text">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
@@ -322,10 +322,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   ?>
 
+<div class="card card-primary card-outline myfourni " data-value="<?php echo $value['nom']; echo $value['quantite']; echo $value['prix']; echo $value['idf']; ?> ">
+              <div class="card-header" id="search1" >
 
-                <div align="center">
-                  <div class="card card-primary card-outline">
-              <div class="card-header">
+
                   <h4>ingredient N<?php echo $value['code']; ?> </h4>
                   <hr>
 
@@ -339,7 +339,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </ul>
                 <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer cette ingredient ?');"
-                 href="../Controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
+                 href="../controller/supprimerIngred.php?code=<?php echo $value['code']; ?>">Supprimer</a>
 
                 <a class="btn btn-primary" href="modi2.php?code=<?php echo $value['code']; ?>">Modifier</a>
 
@@ -391,6 +391,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </body>
 </html>
 </div>
+
+           <script type="text/javascript">
+          $(document).ready(function(){
+          $("#search_text").keyup(function(){
+          var search = $(this).val();
+          $.ajax({
+          url:'recherche2.php',
+          method:'POST',
+          data:{query:search},
+          success:function(response){
+          $("#search1").html(response);
+          }
+          });
+          });
+          });
+        </script>
+
+        <script>
+    document.getElementById("myInput").addEventListener("keyup",function (){
+      console.log(document.getElementById("myInput").value)
+        document.querySelectorAll(".myfourni").forEach(function (div){
+            if(!div.getAttribute('data-value').toUpperCase().includes(document.getElementById("myInput").value.toUpperCase())){
+
+                div.style.display="none";
+            }else{
+                div.style.display="flex";
+
+            }
+        });
+    });
+
+</script>
             <!-- end col-4 -->
 
             <!-- end col-4 -->

@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" id="myInput">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -298,9 +298,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <TD> <button type="submit" class="btn btn-danger"><a href="pdfreclamation.php?">
    PDF  </a></button></TD>
 
-          <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-             <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" id="search_text">
-              </nav>
 
         <!-- BASIC FORM ELELEMNTS -->
         <div class="card card-primary card-outline">
@@ -331,8 +328,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                   ?>
 
-            <div class="card card-primary card-outline">
-              <div class="card-header" id="search1">
+            <div class="card card-primary card-outline myfourni " data-value="<?php echo $value['nom']; echo $value['numero']; echo $value['mail']; echo $value['adresse']; ?> ">
+              <div class="card-header" id="search1" >
 
 
                   <h4>fournisseur N<?php echo $value['id']; ?> </h4>
@@ -350,10 +347,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 </ul>
                 <a class="btn btn-primary" OnClick="return confirm('Voulez vous vraiment supprimer ce fournisseur !!! ?');"
-                   href="../Controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
+                   href="../controller/supprimerFour.php?id=<?php echo $value['id']; ?>">Supprimer</a>
                 <a class="btn btn-primary" href="modi.php?id=<?php echo $value['id']; ?>">Modifier</a>
 
-                <a  href="mailing1.php?mail=<?php echo $value['mail']; ?>">mail</a>
+                <a  href="mailing1.php?mail=<?php echo $value['mail']; ?> & nom=<?php echo $value['nom']; ?>">mail</a>
 
 
 
@@ -368,7 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           $("#search_text").keyup(function(){
           var search = $(this).val();
           $.ajax({
-          url:'recherche_prod.php',
+          url:'recherche.php',
           method:'POST',
           data:{query:search},
           success:function(response){
@@ -378,6 +375,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
           });
           });
         </script>
+
+        <script>
+    document.getElementById("myInput").addEventListener("keyup",function (){
+      console.log(document.getElementById("myInput").value)
+        document.querySelectorAll(".myfourni").forEach(function (div){
+            if(!div.getAttribute('data-value').toUpperCase().includes(document.getElementById("myInput").value.toUpperCase())){
+
+                div.style.display="none";
+            }else{
+                div.style.display="flex";
+
+            }
+        });
+    });
+
+</script>
             <!-- end col-4 -->
 
             <!-- end col-4 -->

@@ -62,7 +62,7 @@ class PDF extends FPDF
         $this->SetLineWidth(.3);
         $this->SetFont('','B');
         // Header
-        $w = array(20, 35, 20, 45, 50);
+        $w = array(20, 35, 20, 60, 45);
         for($i=0;$i<count($header);$i++)
             $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
         $this->Ln();
@@ -78,7 +78,7 @@ class PDF extends FPDF
             $this->Cell($w[1],6,$row['FullName'],'LR',0,'L',$fill);
             $this->Cell($w[2],6,$row['Age'],'LR',0,'L',$fill);
             $this->Cell($w[3],6,$row['Email'],'LR',0,'L',$fill);
-            $this->Cell($w[4],6,$row['Password'],'LR',0,'L',$fill);
+            $this->Cell($w[4],6,utf8_decode($row['Password']),'LR',0,'L',$fill);
             $this->Ln();
             $fill = !$fill;
         }
